@@ -263,5 +263,22 @@ class TodaysPokemonViewController: UIViewController {
         ])
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        let dexBodyGradient = CAGradientLayer()
+        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
+        dexBodyGradient.locations = [0.0, 1.0]
+        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        dexBodyGradient.frame = dexBodyBackground.bounds
+        dexBodyBackground.layer.insertSublayer(dexBodyGradient, at: 0)
+
+        let viewGradient = CAGradientLayer()
+        viewGradient.colors = [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor]
+        viewGradient.locations = [0.0, 1.0]
+        viewGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        viewGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        viewGradient.frame = view.bounds
+        view.layer.insertSublayer(viewGradient, at: 0)
+    }
 
 }
