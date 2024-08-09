@@ -110,7 +110,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UIView())
 
     private let pokemonType1Background: UIView = {
-        $0.backgroundColor = TypeColor.grassType
+        $0.backgroundColor = TypeColor.grass
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +142,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UILabel())
 
     private let pokemonType2Background: UIView = {
-        $0.backgroundColor = TypeColor.poisonType
+        $0.backgroundColor = TypeColor.poison
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -197,6 +197,8 @@ class TodaysPokemonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
+        navigationController?.title = "PokemonDex"
 
         view.addSubview(todaysPokemonBackground)
         todaysPokemonBackground.addSubview(todaysPokemonStack)
