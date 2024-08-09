@@ -198,7 +198,7 @@ class TodaysPokemonViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        navigationController?.title = "PokemonDex"
+        navigationItem.title = "PokemonDex"
 
         view.addSubview(todaysPokemonBackground)
         todaysPokemonBackground.addSubview(todaysPokemonStack)
