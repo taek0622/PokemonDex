@@ -495,7 +495,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UIStackView())
 
     private let pokemonNumber: UILabel = {
-        $0.text = "No.1"
+        $0.text = "No."
         $0.font = .systemFont(ofSize: 15)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -503,7 +503,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UILabel())
 
     private let pokemonName: UILabel = {
-        $0.text = "이상해씨"
+        $0.text = ""
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -511,7 +511,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UILabel())
 
     private let pokemonGenus: UILabel = {
-        $0.text = "씨앗 포켓몬"
+        $0.text = "포켓몬"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -532,7 +532,6 @@ class TodaysPokemonViewController: UIViewController {
     }(UIView())
 
     private let pokemonType1Background: UIView = {
-        $0.backgroundColor = TypeColor.grass
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -549,14 +548,12 @@ class TodaysPokemonViewController: UIViewController {
     }(UIStackView())
 
     private let pokemonType1Icon: UIImageView = {
-        $0.image = #imageLiteral(resourceName: "Grass")
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
     private let pokemonType1Text: UILabel = {
-        $0.text = "풀"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -564,7 +561,6 @@ class TodaysPokemonViewController: UIViewController {
     }(UILabel())
 
     private let pokemonType2Background: UIView = {
-        $0.backgroundColor = TypeColor.poison
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -581,14 +577,12 @@ class TodaysPokemonViewController: UIViewController {
     }(UIStackView())
 
     private let pokemonType2Icon: UIImageView = {
-        $0.image = #imageLiteral(resourceName: "Poison")
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
     private let pokemonType2Text: UILabel = {
-        $0.text = "독"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -596,7 +590,7 @@ class TodaysPokemonViewController: UIViewController {
     }(UILabel())
 
     private let pokemonDexDetail: UILabel = {
-        $0.text = "태어났을 때부터 등에 식물의 씨앗이 있으며 조금씩 크게 자란다."
+        $0.text = "설명"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
         $0.numberOfLines = 0
