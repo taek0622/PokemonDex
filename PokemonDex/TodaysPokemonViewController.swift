@@ -928,6 +928,11 @@ class TodaysPokemonViewController: UIViewController {
         viewGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
         viewGradient.frame = view.bounds
         view.layer.insertSublayer(viewGradient, at: 0)
+
+        let action = UIAction { _ in
+        }
+
+        titleImageButton.addAction(action, for: .touchUpInside)
     }
 
 }
