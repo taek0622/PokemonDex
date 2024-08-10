@@ -471,12 +471,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let titleImageView: UIImageView = {
-        $0.image = #imageLiteral(resourceName: "MonsterBall")
-        $0.contentMode = .scaleToFill
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIImageView())
+    private let titleImageButton = UIButton()
 
     private let titleText: UILabel = {
         $0.text = "오늘의 포켓몬"
@@ -624,7 +619,7 @@ class TodaysPokemonViewController: UIViewController {
         todaysPokemonStack.addArrangedSubview(todaysPokemonFooter)
         dexBodyBackground.addSubview(dexBodyStack)
 
-        titleStack.addArrangedSubview(titleImageView)
+        titleStack.addArrangedSubview(titleImageButton)
         titleStack.addArrangedSubview(titleText)
 
         dexBodyStack.addArrangedSubview(dexBodyDetailStack)
@@ -650,6 +645,10 @@ class TodaysPokemonViewController: UIViewController {
         pokemonType2Stack.addArrangedSubview(pokemonType2Icon)
         pokemonType2Stack.addArrangedSubview(pokemonType2Text)
 
+        var buttonConfig = UIButton.Configuration.borderless()
+        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
+        titleImageButton.configuration = buttonConfig
+
         NSLayoutConstraint.activate([
             todaysPokemonBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             todaysPokemonBackground.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
@@ -662,8 +661,8 @@ class TodaysPokemonViewController: UIViewController {
             dexBodyStack.leftAnchor.constraint(equalTo: dexBodyBackground.leftAnchor),
             dexBodyStack.bottomAnchor.constraint(equalTo: dexBodyBackground.bottomAnchor),
             dexBodyStack.rightAnchor.constraint(equalTo: dexBodyBackground.rightAnchor),
-            titleImageView.widthAnchor.constraint(equalToConstant: 21),
-            titleImageView.heightAnchor.constraint(equalToConstant: 21),
+            titleImageButton.widthAnchor.constraint(equalToConstant: 21),
+            titleImageButton.heightAnchor.constraint(equalToConstant: 21),
             pokemonType1Stack.topAnchor.constraint(equalTo: pokemonType1Background.topAnchor),
             pokemonType1Stack.leftAnchor.constraint(equalTo: pokemonType1Background.leftAnchor),
             pokemonType1Stack.bottomAnchor.constraint(equalTo: pokemonType1Background.bottomAnchor),
