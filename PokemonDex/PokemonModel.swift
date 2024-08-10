@@ -17,7 +17,7 @@ struct PokemonModel: Codable {
     var weight: Int
     var abilities: [PokemonAbility]
     var forms: [PokemonForm]
-    var gameIndices: [PokemonGameIndex]
+    var gameIndices: [VersionGameIndex]
     var heldItems: [PokemonHeldItem]
     var locationAreaEncounters: String
     var moves: [PokemonMove]
@@ -132,19 +132,14 @@ struct PokemonForm: Codable {
     var url: String
 }
 
-struct PokemonGameIndex: Codable {
+struct VersionGameIndex: Codable {
     var gameIndex: Int
-    var version: PokemonGameIndexVersion
+    var version: NamedAPIResource
 
     enum CodingKeys: String, CodingKey {
         case gameIndex = "game_index"
         case version
     }
-}
-
-struct PokemonGameIndexVersion: Codable {
-    var name: String
-    var url: String
 }
 
 struct PokemonSpecies: Codable {
