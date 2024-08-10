@@ -7,25 +7,86 @@
 
 import Foundation
 
+/**
+ 포켓몬의 정보를 가져오는 데 필요한 데이터
+ 
+ ```swift
+ struct PokemonModel {
+     /// 포켓몬의 id
+     var id: Int
+     /// 포켓몬의 이름
+     var name: String
+     /// 해당 포켓몬을 쓰러뜨렸을 때 얻는 기본 경험치
+     var baseExperience: Int
+     /// 포켓몬의 키 (cm)
+     var height: Int
+     var isDefault: Bool
+     /// 정렬 순서. 같은 종의 서로 다른 폼 등이 그룹화되는 것을 제외하고는 거의 세대별 순서
+     var order: Int
+     /// 포켓몬의 무게 (hg / 0.1kg)
+     var weight: Int
+     /// 포켓몬이 잠재적으로 가질 수 있는 특성 목록
+     var abilities: [PokemonAbility]
+     /// 포켓몬이 가질 수 있는 폼(형태) 목록
+     var forms: [PokemonForm]
+     /// 세대별 포켓몬과 관련된 게임 목록
+     var gameIndices: [VersionGameIndex]
+     /// 해당 포켓몬을 야생에서 만났을 때 가지고 있을 수 있는 아이템 목록
+     var heldItems: [PokemonHeldItem]
+     var locationAreaEncounters: String
+     /// 해당 포켓몬이 특정 버전에서 기술을 배우는 방법 및 레벨 등의 세부 정보를 포함한 기술 정보 목록
+     var moves: [PokemonMove]
+     /// 해당 포켓몬이 속한 종 (해당 포켓몬의 PokemonSpecies API url)
+     var species: NamedAPIResource
+     /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 스프라이트 세트
+     var sprites: PokemonSprites
+     /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 울음소리 세트
+     var cries: PokemonCries
+     /// 해당 포켓몬의 종족값 목록
+     var stats: [PokemonStat]
+     /// 해당 포켓몬이 가진 타입 목록
+     var types: [PokemonType]
+     /// 해당 포켓몬이 이전 세대에서 가졌던 타입 목록
+     var pastTypes: [PokemonTypePast]
+ }
+ ```
+ */
 struct PokemonModel: Codable {
+    /// 포켓몬의 id
     var id: Int
+    /// 포켓몬의 이름
     var name: String
+    /// 해당 포켓몬을 쓰러뜨렸을 때 얻는 기본 경험치
     var baseExperience: Int
+    /// 포켓몬의 키 (cm)
     var height: Int
     var isDefault: Bool
+    /// 정렬 순서. 같은 종의 서로 다른 폼 등이 그룹화되는 것을 제외하고는 거의 세대별 순서
     var order: Int
+    /// 포켓몬의 무게 (hg / 0.1kg)
     var weight: Int
+    /// 포켓몬이 잠재적으로 가질 수 있는 특성 목록
     var abilities: [PokemonAbility]
+    /// 포켓몬이 가질 수 있는 폼(형태) 목록
     var forms: [PokemonForm]
+    /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
+    /// 해당 포켓몬을 야생에서 만났을 때 가지고 있을 수 있는 아이템 목록
     var heldItems: [PokemonHeldItem]
     var locationAreaEncounters: String
+    /// 해당 포켓몬이 특정 버전에서 기술을 배우는 방법 및 레벨 등의 세부 정보를 포함한 기술 정보 목록
     var moves: [PokemonMove]
+    /// 해당 포켓몬이 속한 종 (해당 포켓몬의 PokemonSpecies API url)
     var species: NamedAPIResource
+    /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 스프라이트 세트
     var sprites: PokemonSprites
+    /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 울음소리 세트
     var cries: PokemonCries
+    /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
+    /// 해당 포켓몬이 가진 타입 목록
     var types: [PokemonType]
+    /// 해당 포켓몬이 이전 세대에서 가졌던 타입 목록
     var pastTypes: [PokemonTypePast]
 
     enum CodingKeys: String, CodingKey {
