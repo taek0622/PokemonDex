@@ -402,7 +402,7 @@ struct PokemonSpeciesInfo: Codable {
     var genera: [PokedexGenus]
     var id: Int
     var name: String
-    var names: [PokedexName]
+    var names: [NameModel]
     var order: Int
     var pokedexNumbers: [PokedexNumber]
 
@@ -420,11 +420,6 @@ struct PokemonSpeciesInfo: Codable {
 struct PokedexGenus: Codable {
     var genus: String
     var language: NamedAPIResource
-}
-
-struct PokedexName: Codable {
-    var language: NamedAPIResource
-    var name: String
 }
 
 struct PokedexNumber: Codable {

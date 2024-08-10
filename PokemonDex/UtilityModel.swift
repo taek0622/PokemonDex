@@ -19,6 +19,11 @@ struct FlavorText: Codable {
     }
 }
 
+struct NameModel: Codable {
+    var name: String
+    var language: NamedAPIResource
+}
+
 struct NamedAPIResource: Codable {
     var name: String
     var url: String
