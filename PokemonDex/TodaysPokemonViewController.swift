@@ -930,6 +930,11 @@ class TodaysPokemonViewController: UIViewController {
         view.layer.insertSublayer(viewGradient, at: 0)
 
         let action = UIAction { _ in
+            UIView.animate(withDuration: 1) {
+                self.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
+                self.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
+            }
+
         }
 
         titleImageButton.addAction(action, for: .touchUpInside)
