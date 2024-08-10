@@ -21,7 +21,7 @@ struct PokemonModel: Codable {
     var heldItems: [PokemonHeldItem]
     var locationAreaEncounters: String
     var moves: [PokemonMove]
-    var species: PokemonSpecies
+    var species: NamedAPIResource
     var sprites: PokemonSprites
     var cries: PokemonCries
     var stats: [PokemonStat]
@@ -140,11 +140,6 @@ struct VersionGameIndex: Codable {
         case gameIndex = "game_index"
         case version
     }
-}
-
-struct PokemonSpecies: Codable {
-    var name: String
-    var url: String
 }
 
 struct PokemonSprites: Codable {
