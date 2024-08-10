@@ -193,16 +193,6 @@ struct PokemonForm: Codable {
     var url: String
 }
 
-struct VersionGameIndex: Codable {
-    var gameIndex: Int
-    var version: NamedAPIResource
-
-    enum CodingKeys: String, CodingKey {
-        case gameIndex = "game_index"
-        case version
-    }
-}
-
 struct PokemonSprites: Codable {
     var backDefault: String?
     var backFemale: String?
