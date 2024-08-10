@@ -397,7 +397,7 @@ struct PokemonSpritesGenerationVIII: Codable {
     var icons: PokemonSpritesComponent
 }
 
-struct PokemonSpeciesInfo: Codable {
+struct PokemonSpeciesModel: Codable {
     var flavorTextEntries: [FlavorText]
     var genera: [PokedexGenus]
     var id: Int

@@ -477,7 +477,7 @@ class TodaysPokemonViewController: UIViewController {
                 return
             }
 
-            guard let json = try? JSONDecoder().decode(PokemonSpeciesInfo.self, from: data) else {
+            guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
                 print("Error: Data Decoding error")
                 return
             }
@@ -735,7 +735,7 @@ class TodaysPokemonViewController: UIViewController {
                         return
                     }
 
-                    guard let json = try? JSONDecoder().decode(PokemonSpeciesInfo.self, from: data) else {
+                    guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
                         print("Error: Data Decoding error")
                         return
                     }
