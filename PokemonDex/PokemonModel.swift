@@ -408,7 +408,7 @@ struct PokemonSpritesGenerationVIII: Codable {
 }
 
 struct PokemonSpeciesInfo: Codable {
-    var flavorTextEntries: [PokedexFlavorText]
+    var flavorTextEntries: [FlavorText]
     var genera: [PokedexGenus]
     var id: Int
     var name: String
@@ -427,35 +427,13 @@ struct PokemonSpeciesInfo: Codable {
     }
 }
 
-struct PokedexFlavorText: Codable {
-    var flavorText: String
-    var language: PokedexLanguage
-    var version: PokedexVersion
-
-    enum CodingKeys: String, CodingKey {
-        case flavorText = "flavor_text"
-        case language
-        case version
-    }
-}
-
-struct PokedexLanguage: Codable {
-    var name: String
-    var url: String
-}
-
-struct PokedexVersion: Codable {
-    var name: String
-    var url: String
-}
-
 struct PokedexGenus: Codable {
     var genus: String
-    var language: PokedexLanguage
+    var language: NamedAPIResource
 }
 
 struct PokedexName: Codable {
-    var language: PokedexLanguage
+    var language: NamedAPIResource
     var name: String
 }
 
