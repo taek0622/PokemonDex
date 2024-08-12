@@ -403,7 +403,7 @@ struct PokemonSpeciesModel: Codable {
     var name: String
     var names: [NameModel]
     var order: Int
-    var pokedexNumbers: [PokedexNumber]
+    var pokedexNumbers: [PokemonSpeciesDexEntry]
     var genera: [Genus]
 
     enum CodingKeys: String, CodingKey {
@@ -422,7 +422,7 @@ struct Genus: Codable {
     var language: NamedAPIResource
 }
 
-struct PokedexNumber: Codable {
+struct PokemonSpeciesDexEntry: Codable {
     var entryNumber: Int
     var pokedex: NamedAPIResource
 
