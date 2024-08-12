@@ -62,7 +62,7 @@ class TodaysPokemonViewController: UIViewController {
         $0.spacing = 4
         $0.axis = .vertical
         $0.alignment = .top
-        $0.distribution = .fillProportionally
+        $0.distribution = .fill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIStackView())
