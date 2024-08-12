@@ -424,7 +424,7 @@ struct Genus: Codable {
 
 struct PokedexNumber: Codable {
     var entryNumber: Int
-    var pokedex: PokedexNumberInfo
+    var pokedex: NamedAPIResource
 
     enum CodingKeys: String, CodingKey {
         case entryNumber = "entry_number"
@@ -432,7 +432,12 @@ struct PokedexNumber: Codable {
     }
 }
 
-struct PokedexNumberInfo: Codable {
-    var name: String
-    var url: String
+struct PokemonSpeciesVariety: Codable {
+    var isDefault: Bool
+    var pokemon: NamedAPIResource
+
+    enum CodingKeys: String, CodingKey {
+        case isDefault = "is_default"
+        case pokemon
+    }
 }
