@@ -162,14 +162,17 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UILabel())
 
-    private let pokemonDexDetail: UILabel = {
+    private let pokemonDexDetail: UITextView = {
         $0.text = "설명"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
-        $0.numberOfLines = 0
+        $0.backgroundColor = .clear
+        $0.showsVerticalScrollIndicator = false
+        $0.isEditable = false
+        $0.isScrollEnabled = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UILabel())
+    }(UITextView())
 
     private let pokemonSprite: UIImageView = {
         $0.image = #imageLiteral(resourceName: "MonsterBall")
