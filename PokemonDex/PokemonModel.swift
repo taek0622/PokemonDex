@@ -399,12 +399,12 @@ struct PokemonSpritesGenerationVIII: Codable {
 
 struct PokemonSpeciesModel: Codable {
     var flavorTextEntries: [FlavorText]
-    var genera: [PokedexGenus]
     var id: Int
     var name: String
     var names: [NameModel]
     var order: Int
     var pokedexNumbers: [PokedexNumber]
+    var genera: [Genus]
 
     enum CodingKeys: String, CodingKey {
         case flavorTextEntries = "flavor_text_entries"
@@ -417,7 +417,7 @@ struct PokemonSpeciesModel: Codable {
     }
 }
 
-struct PokedexGenus: Codable {
+struct Genus: Codable {
     var genus: String
     var language: NamedAPIResource
 }
