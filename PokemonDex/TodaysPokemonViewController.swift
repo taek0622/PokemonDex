@@ -7,15 +7,7 @@
 
 import UIKit
 
-class TodaysPokemonViewController: UIViewController {
-
-    private let todaysPokemonBackground: UIView = {
-        $0.backgroundColor = .white
-        $0.layer.cornerRadius = 16
-        $0.layer.masksToBounds = true
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
+class TodaysPokemonView: UIView {
 
     private let todaysPokemonStack: UIStackView = {
         $0.spacing = 0
@@ -34,7 +26,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let dexBodyBackground: UIView = {
+    let dexBodyBackground: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
@@ -49,9 +41,9 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let titleImageButton = UIButton()
+    let titleImageButton = UIButton()
 
-    private let titleText: UILabel = {
+    let titleText: UILabel = {
         $0.text = "오늘의 포켓몬"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +59,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let pokemonNumber: UILabel = {
+    let pokemonNumber: UILabel = {
         $0.text = "No."
         $0.font = .systemFont(ofSize: 15)
         $0.textColor = .white
@@ -75,7 +67,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UILabel())
 
-    private let pokemonName: UILabel = {
+    let pokemonName: UILabel = {
         $0.text = ""
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .white
@@ -83,7 +75,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UILabel())
 
-    private let pokemonGenus: UILabel = {
+    let pokemonGenus: UILabel = {
         $0.text = "포켓몬"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
@@ -104,7 +96,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIView())
 
-    private let pokemonType1Background: UIView = {
+    let pokemonType1Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -120,20 +112,20 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let pokemonType1Icon: UIImageView = {
+    let pokemonType1Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    private let pokemonType1Text: UILabel = {
+    let pokemonType1Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    private let pokemonType2Background: UIView = {
+    let pokemonType2Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -149,20 +141,20 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIStackView())
 
-    private let pokemonType2Icon: UIImageView = {
+    let pokemonType2Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    private let pokemonType2Text: UILabel = {
+    let pokemonType2Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    private let pokemonDexDetail: UITextView = {
+    let pokemonDexDetail: UITextView = {
         $0.text = "설명"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
@@ -174,7 +166,7 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UITextView())
 
-    private let pokemonSprite: UIImageView = {
+    let pokemonSprite: UIImageView = {
         $0.image = #imageLiteral(resourceName: "MonsterBall")
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -186,14 +178,21 @@ class TodaysPokemonViewController: UIViewController {
         return $0
     }(UIView())
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
 
-        navigationItem.title = "PokemonDex"
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
-        view.addSubview(todaysPokemonBackground)
-        todaysPokemonBackground.addSubview(todaysPokemonStack)
+    private func layout() {
+        backgroundColor = .white
+        layer.cornerRadius = 16
+        layer.masksToBounds = true
+
+        addSubview(todaysPokemonStack)
 
         todaysPokemonStack.addArrangedSubview(titleStack)
         todaysPokemonStack.addArrangedSubview(dexBodyBackground)
@@ -231,13 +230,10 @@ class TodaysPokemonViewController: UIViewController {
         titleImageButton.configuration = buttonConfig
 
         NSLayoutConstraint.activate([
-            todaysPokemonBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            todaysPokemonBackground.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            todaysPokemonBackground.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
-            todaysPokemonStack.topAnchor.constraint(equalTo: todaysPokemonBackground.topAnchor),
-            todaysPokemonStack.leftAnchor.constraint(equalTo: todaysPokemonBackground.leftAnchor),
-            todaysPokemonStack.bottomAnchor.constraint(equalTo: todaysPokemonBackground.bottomAnchor),
-            todaysPokemonStack.rightAnchor.constraint(equalTo: todaysPokemonBackground.rightAnchor),
+            todaysPokemonStack.topAnchor.constraint(equalTo: topAnchor),
+            todaysPokemonStack.leftAnchor.constraint(equalTo: leftAnchor),
+            todaysPokemonStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            todaysPokemonStack.rightAnchor.constraint(equalTo: rightAnchor),
             dexBodyStack.topAnchor.constraint(equalTo: dexBodyBackground.topAnchor),
             dexBodyStack.leftAnchor.constraint(equalTo: dexBodyBackground.leftAnchor),
             dexBodyStack.bottomAnchor.constraint(equalTo: dexBodyBackground.bottomAnchor),
@@ -260,9 +256,36 @@ class TodaysPokemonViewController: UIViewController {
             pokemonSprite.heightAnchor.constraint(equalTo: pokemonSprite.widthAnchor),
             todaysPokemonFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor)
         ])
+    }
+}
+
+class TodaysPokemonViewController: UIViewController {
+
+    private let todaysPokemonView: TodaysPokemonView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(TodaysPokemonView())
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+
+        navigationItem.title = "PokemonDex"
+
+        view.addSubview(todaysPokemonView)
+
+        var buttonConfig = UIButton.Configuration.borderless()
+        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
+        todaysPokemonView.titleImageButton.configuration = buttonConfig
+
+        NSLayoutConstraint.activate([
+            todaysPokemonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            todaysPokemonView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            todaysPokemonView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
+        ])
 
         let number = Int.random(in: 1...1025)
-        pokemonNumber.text = "No.\(number)"
+        todaysPokemonView.pokemonNumber.text = "No.\(number)"
 
         guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
         let pokemonRequest = URLRequest(url: pokemonUrl)
@@ -284,10 +307,10 @@ class TodaysPokemonViewController: UIViewController {
             }
 
             DispatchQueue.main.async {
-                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
+                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.todaysPokemonView.pokemonType1Icon, typeText: self.todaysPokemonView.pokemonType1Text, backgroundView: self.todaysPokemonView.pokemonType1Background)
 
                 if !json.types.filter({ $0.slot == 2 }).isEmpty {
-                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
+                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.todaysPokemonView.pokemonType2Icon, typeText: self.todaysPokemonView.pokemonType2Text, backgroundView: self.todaysPokemonView.pokemonType2Background)
                 }
 
                 guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
@@ -311,7 +334,7 @@ class TodaysPokemonViewController: UIViewController {
                     }
 
                     DispatchQueue.main.async {
-                        self.pokemonSprite.image = image
+                        self.todaysPokemonView.pokemonSprite.image = image
                     }
                 }.resume()
             }
@@ -337,9 +360,9 @@ class TodaysPokemonViewController: UIViewController {
             }
 
             DispatchQueue.main.async {
-                self.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
-                self.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
-                self.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
+                self.todaysPokemonView.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
+                self.todaysPokemonView.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
+                self.todaysPokemonView.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
             }
         }.resume()
     }
@@ -350,8 +373,8 @@ class TodaysPokemonViewController: UIViewController {
         dexBodyGradient.locations = [0.0, 1.0]
         dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
         dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        dexBodyGradient.frame = dexBodyBackground.bounds
-        dexBodyBackground.layer.insertSublayer(dexBodyGradient, at: 0)
+        dexBodyGradient.frame = todaysPokemonView.dexBodyBackground.bounds
+        todaysPokemonView.dexBodyBackground.layer.insertSublayer(dexBodyGradient, at: 0)
 
         let viewGradient = CAGradientLayer()
         viewGradient.colors = [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor]
@@ -363,14 +386,14 @@ class TodaysPokemonViewController: UIViewController {
 
         let action = UIAction { _ in
             UIView.animate(withDuration: 1) {
-                self.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
+                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
+                self.todaysPokemonView.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
             }
 
             UIView.animate(withDuration: 1) {
-                self.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
+                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
                 let number = Int.random(in: 1...1025)
-                self.pokemonNumber.text = "No.\(number)"
+                self.todaysPokemonView.pokemonNumber.text = "No.\(number)"
 
                 guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
                 let pokemonRequest = URLRequest(url: pokemonUrl)
@@ -392,14 +415,14 @@ class TodaysPokemonViewController: UIViewController {
                     }
 
                     DispatchQueue.main.async {
-                        self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
+                        self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.todaysPokemonView.pokemonType1Icon, typeText: self.todaysPokemonView.pokemonType1Text, backgroundView: self.todaysPokemonView.pokemonType1Background)
 
                         if !json.types.filter({ $0.slot == 2 }).isEmpty {
-                            self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
+                            self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.todaysPokemonView.pokemonType2Icon, typeText: self.todaysPokemonView.pokemonType2Text, backgroundView: self.todaysPokemonView.pokemonType2Background)
                         } else {
-                            self.pokemonType2Icon.image = UIImage()
-                            self.pokemonType2Text.text = ""
-                            self.pokemonType2Background.backgroundColor = .clear
+                            self.todaysPokemonView.pokemonType2Icon.image = UIImage()
+                            self.todaysPokemonView.pokemonType2Text.text = ""
+                            self.todaysPokemonView.pokemonType2Background.backgroundColor = .clear
                         }
 
                         guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
@@ -423,7 +446,7 @@ class TodaysPokemonViewController: UIViewController {
                             }
 
                             DispatchQueue.main.async {
-                                self.pokemonSprite.image = image
+                                self.todaysPokemonView.pokemonSprite.image = image
                             }
                         }.resume()
                     }
@@ -449,16 +472,16 @@ class TodaysPokemonViewController: UIViewController {
                     }
 
                     DispatchQueue.main.async {
-                        self.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
-                        self.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
-                        self.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-                        self.pokemonDexDetail.setContentOffset(.zero, animated: false)
+                        self.todaysPokemonView.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
+                        self.todaysPokemonView.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
+                        self.todaysPokemonView.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
+                        self.todaysPokemonView.pokemonDexDetail.setContentOffset(.zero, animated: false)
                     }
                 }.resume()
             }
         }
 
-        titleImageButton.addAction(action, for: .touchUpInside)
+        todaysPokemonView.titleImageButton.addAction(action, for: .touchUpInside)
     }
 
     private func configureTypeComponent(type typeName: String, icon: UIImageView, typeText: UILabel, backgroundView: UIView) {
