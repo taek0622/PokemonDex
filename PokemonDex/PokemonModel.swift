@@ -68,7 +68,7 @@ struct PokemonModel: Codable {
     /// 포켓몬이 잠재적으로 가질 수 있는 특성 목록
     var abilities: [PokemonAbility]
     /// 포켓몬이 가질 수 있는 폼(형태) 목록
-    var forms: [PokemonForm]
+    var forms: [NamedAPIResource]
     /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
     /// 해당 포켓몬을 야생에서 만났을 때 가지고 있을 수 있는 아이템 목록
@@ -186,11 +186,6 @@ struct PokemonStat: Codable {
 struct PokemonCries: Codable {
     var latest: String
     var legacy: String?
-}
-
-struct PokemonForm: Codable {
-    var name: String
-    var url: String
 }
 
 struct PokemonSprites: Codable {
