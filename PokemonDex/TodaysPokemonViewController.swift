@@ -288,6 +288,10 @@ class TodaysPokemonViewController: UIViewController {
 
                 if !json.types.filter { $0.slot == 2 }.isEmpty {
                     self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
+                } else {
+                    self.pokemonType2Icon.image = UIImage()
+                    self.pokemonType2Text.text = ""
+                    self.pokemonType2Background.backgroundColor = .clear
                 }
 
                 guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
@@ -396,6 +400,10 @@ class TodaysPokemonViewController: UIViewController {
 
                         if !json.types.filter { $0.slot == 2 }.isEmpty {
                             self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
+                        } else {
+                            self.pokemonType2Icon.image = UIImage()
+                            self.pokemonType2Text.text = ""
+                            self.pokemonType2Background.backgroundColor = .clear
                         }
 
                         guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
