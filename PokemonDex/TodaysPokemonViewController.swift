@@ -256,6 +256,7 @@ class TodaysPokemonViewController: UIViewController {
             pokemonType1Icon.heightAnchor.constraint(equalToConstant: 17),
             pokemonType2Icon.widthAnchor.constraint(equalToConstant: 17),
             pokemonType2Icon.heightAnchor.constraint(equalToConstant: 17),
+            pokemonDexDetail.widthAnchor.constraint(equalTo: dexBodyDetailStack.widthAnchor),
             pokemonSprite.heightAnchor.constraint(equalTo: pokemonSprite.widthAnchor),
             todaysPokemonFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor)
         ])
