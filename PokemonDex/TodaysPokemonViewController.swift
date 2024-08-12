@@ -284,160 +284,10 @@ class TodaysPokemonViewController: UIViewController {
             }
 
             DispatchQueue.main.async {
-                switch json.types.filter { $0.slot == 1 }[0].type.name {
-                case "normal":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Normal")
-                    self.pokemonType1Text.text = "노말"
-                    self.pokemonType1Background.backgroundColor = TypeColor.normal
-                case "fire":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fire")
-                    self.pokemonType1Text.text = "불꽃"
-                    self.pokemonType1Background.backgroundColor = TypeColor.fire
-                case "water":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Water")
-                    self.pokemonType1Text.text = "물"
-                    self.pokemonType1Background.backgroundColor = TypeColor.water
-                case "grass":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Grass")
-                    self.pokemonType1Text.text = "풀"
-                    self.pokemonType1Background.backgroundColor = TypeColor.grass
-                case "electric":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Electric")
-                    self.pokemonType1Text.text = "전기"
-                    self.pokemonType1Background.backgroundColor = TypeColor.electric
-                case "ice":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ice")
-                    self.pokemonType1Text.text = "얼음"
-                    self.pokemonType1Background.backgroundColor = TypeColor.ice
-                case "fighting":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fighting")
-                    self.pokemonType1Text.text = "격투"
-                    self.pokemonType1Background.backgroundColor = TypeColor.fighting
-                case "poison":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Poison")
-                    self.pokemonType1Text.text = "독"
-                    self.pokemonType1Background.backgroundColor = TypeColor.poison
-                case "ground":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ground")
-                    self.pokemonType1Text.text = "땅"
-                    self.pokemonType1Background.backgroundColor = TypeColor.ground
-                case "flying":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Flying")
-                    self.pokemonType1Text.text = "비행"
-                    self.pokemonType1Background.backgroundColor = TypeColor.flying
-                case "psychic":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Psychic")
-                    self.pokemonType1Text.text = "에스퍼"
-                    self.pokemonType1Background.backgroundColor = TypeColor.psychic
-                case "bug":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Bug")
-                    self.pokemonType1Text.text = "벌레"
-                    self.pokemonType1Background.backgroundColor = TypeColor.bug
-                case "rock":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Rock")
-                    self.pokemonType1Text.text = "바위"
-                    self.pokemonType1Background.backgroundColor = TypeColor.rock
-                case "ghost":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ghost")
-                    self.pokemonType1Text.text = "고스트"
-                    self.pokemonType1Background.backgroundColor = TypeColor.ghost
-                case "dragon":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Dragon")
-                    self.pokemonType1Text.text = "드래곤"
-                    self.pokemonType1Background.backgroundColor = TypeColor.dragon
-                case "dark":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Dark")
-                    self.pokemonType1Text.text = "악"
-                    self.pokemonType1Background.backgroundColor = TypeColor.dark
-                case "steel":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Steel")
-                    self.pokemonType1Text.text = "강철"
-                    self.pokemonType1Background.backgroundColor = TypeColor.steel
-                case "fairy":
-                    self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fairy")
-                    self.pokemonType1Text.text = "페어리"
-                    self.pokemonType1Background.backgroundColor = TypeColor.fairy
-                default:
-                    break
-                }
+                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
 
                 if !json.types.filter { $0.slot == 2 }.isEmpty {
-                    switch json.types.filter { $0.slot == 2 }[0].type.name {
-                    case "normal":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Normal")
-                        self.pokemonType2Text.text = "노말"
-                        self.pokemonType2Background.backgroundColor = TypeColor.normal
-                    case "fire":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fire")
-                        self.pokemonType2Text.text = "불꽃"
-                        self.pokemonType2Background.backgroundColor = TypeColor.fire
-                    case "water":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Water")
-                        self.pokemonType2Text.text = "물"
-                        self.pokemonType2Background.backgroundColor = TypeColor.water
-                    case "grass":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Grass")
-                        self.pokemonType2Text.text = "풀"
-                        self.pokemonType2Background.backgroundColor = TypeColor.grass
-                    case "electric":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Electric")
-                        self.pokemonType2Text.text = "전기"
-                        self.pokemonType2Background.backgroundColor = TypeColor.electric
-                    case "ice":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ice")
-                        self.pokemonType2Text.text = "얼음"
-                        self.pokemonType2Background.backgroundColor = TypeColor.ice
-                    case "fighting":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fighting")
-                        self.pokemonType2Text.text = "격투"
-                        self.pokemonType2Background.backgroundColor = TypeColor.fighting
-                    case "poison":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Poison")
-                        self.pokemonType2Text.text = "독"
-                        self.pokemonType2Background.backgroundColor = TypeColor.poison
-                    case "ground":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ground")
-                        self.pokemonType2Text.text = "땅"
-                        self.pokemonType2Background.backgroundColor = TypeColor.ground
-                    case "flying":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Flying")
-                        self.pokemonType2Text.text = "비행"
-                        self.pokemonType2Background.backgroundColor = TypeColor.flying
-                    case "psychic":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Psychic")
-                        self.pokemonType2Text.text = "에스퍼"
-                        self.pokemonType2Background.backgroundColor = TypeColor.psychic
-                    case "bug":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Bug")
-                        self.pokemonType2Text.text = "벌레"
-                        self.pokemonType2Background.backgroundColor = TypeColor.bug
-                    case "rock":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Rock")
-                        self.pokemonType2Text.text = "바위"
-                        self.pokemonType2Background.backgroundColor = TypeColor.rock
-                    case "ghost":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ghost")
-                        self.pokemonType2Text.text = "고스트"
-                        self.pokemonType2Background.backgroundColor = TypeColor.ghost
-                    case "dragon":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Dragon")
-                        self.pokemonType2Text.text = "드래곤"
-                        self.pokemonType2Background.backgroundColor = TypeColor.dragon
-                    case "dark":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Dark")
-                        self.pokemonType2Text.text = "악"
-                        self.pokemonType2Background.backgroundColor = TypeColor.dark
-                    case "steel":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Steel")
-                        self.pokemonType2Text.text = "강철"
-                        self.pokemonType2Background.backgroundColor = TypeColor.steel
-                    case "fairy":
-                        self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fairy")
-                        self.pokemonType2Text.text = "페어리"
-                        self.pokemonType2Background.backgroundColor = TypeColor.fairy
-                    default:
-                        break
-                    }
+                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
                 }
 
                 guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
@@ -542,160 +392,10 @@ class TodaysPokemonViewController: UIViewController {
                     }
 
                     DispatchQueue.main.async {
-                        switch json.types.filter { $0.slot == 1 }[0].type.name {
-                        case "normal":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Normal")
-                            self.pokemonType1Text.text = "노말"
-                            self.pokemonType1Background.backgroundColor = TypeColor.normal
-                        case "fire":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fire")
-                            self.pokemonType1Text.text = "불꽃"
-                            self.pokemonType1Background.backgroundColor = TypeColor.fire
-                        case "water":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Water")
-                            self.pokemonType1Text.text = "물"
-                            self.pokemonType1Background.backgroundColor = TypeColor.water
-                        case "grass":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Grass")
-                            self.pokemonType1Text.text = "풀"
-                            self.pokemonType1Background.backgroundColor = TypeColor.grass
-                        case "electric":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Electric")
-                            self.pokemonType1Text.text = "전기"
-                            self.pokemonType1Background.backgroundColor = TypeColor.electric
-                        case "ice":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ice")
-                            self.pokemonType1Text.text = "얼음"
-                            self.pokemonType1Background.backgroundColor = TypeColor.ice
-                        case "fighting":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fighting")
-                            self.pokemonType1Text.text = "격투"
-                            self.pokemonType1Background.backgroundColor = TypeColor.fighting
-                        case "poison":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Poison")
-                            self.pokemonType1Text.text = "독"
-                            self.pokemonType1Background.backgroundColor = TypeColor.poison
-                        case "ground":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ground")
-                            self.pokemonType1Text.text = "땅"
-                            self.pokemonType1Background.backgroundColor = TypeColor.ground
-                        case "flying":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Flying")
-                            self.pokemonType1Text.text = "비행"
-                            self.pokemonType1Background.backgroundColor = TypeColor.flying
-                        case "psychic":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Psychic")
-                            self.pokemonType1Text.text = "에스퍼"
-                            self.pokemonType1Background.backgroundColor = TypeColor.psychic
-                        case "bug":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Bug")
-                            self.pokemonType1Text.text = "벌레"
-                            self.pokemonType1Background.backgroundColor = TypeColor.bug
-                        case "rock":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Rock")
-                            self.pokemonType1Text.text = "바위"
-                            self.pokemonType1Background.backgroundColor = TypeColor.rock
-                        case "ghost":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Ghost")
-                            self.pokemonType1Text.text = "고스트"
-                            self.pokemonType1Background.backgroundColor = TypeColor.ghost
-                        case "dragon":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Dragon")
-                            self.pokemonType1Text.text = "드래곤"
-                            self.pokemonType1Background.backgroundColor = TypeColor.dragon
-                        case "dark":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Dark")
-                            self.pokemonType1Text.text = "악"
-                            self.pokemonType1Background.backgroundColor = TypeColor.dark
-                        case "steel":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Steel")
-                            self.pokemonType1Text.text = "강철"
-                            self.pokemonType1Background.backgroundColor = TypeColor.steel
-                        case "fairy":
-                            self.pokemonType1Icon.image = #imageLiteral(resourceName: "Fairy")
-                            self.pokemonType1Text.text = "페어리"
-                            self.pokemonType1Background.backgroundColor = TypeColor.fairy
-                        default:
-                            break
-                        }
+                        self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
 
                         if !json.types.filter { $0.slot == 2 }.isEmpty {
-                            switch json.types.filter { $0.slot == 2 }[0].type.name {
-                            case "normal":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Normal")
-                                self.pokemonType2Text.text = "노말"
-                                self.pokemonType2Background.backgroundColor = TypeColor.normal
-                            case "fire":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fire")
-                                self.pokemonType2Text.text = "불꽃"
-                                self.pokemonType2Background.backgroundColor = TypeColor.fire
-                            case "water":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Water")
-                                self.pokemonType2Text.text = "물"
-                                self.pokemonType2Background.backgroundColor = TypeColor.water
-                            case "grass":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Grass")
-                                self.pokemonType2Text.text = "풀"
-                                self.pokemonType2Background.backgroundColor = TypeColor.grass
-                            case "electric":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Electric")
-                                self.pokemonType2Text.text = "전기"
-                                self.pokemonType2Background.backgroundColor = TypeColor.electric
-                            case "ice":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ice")
-                                self.pokemonType2Text.text = "얼음"
-                                self.pokemonType2Background.backgroundColor = TypeColor.ice
-                            case "fighting":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fighting")
-                                self.pokemonType2Text.text = "격투"
-                                self.pokemonType2Background.backgroundColor = TypeColor.fighting
-                            case "poison":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Poison")
-                                self.pokemonType2Text.text = "독"
-                                self.pokemonType2Background.backgroundColor = TypeColor.poison
-                            case "ground":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ground")
-                                self.pokemonType2Text.text = "땅"
-                                self.pokemonType2Background.backgroundColor = TypeColor.ground
-                            case "flying":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Flying")
-                                self.pokemonType2Text.text = "비행"
-                                self.pokemonType2Background.backgroundColor = TypeColor.flying
-                            case "psychic":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Psychic")
-                                self.pokemonType2Text.text = "에스퍼"
-                                self.pokemonType2Background.backgroundColor = TypeColor.psychic
-                            case "bug":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Bug")
-                                self.pokemonType2Text.text = "벌레"
-                                self.pokemonType2Background.backgroundColor = TypeColor.bug
-                            case "rock":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Rock")
-                                self.pokemonType2Text.text = "바위"
-                                self.pokemonType2Background.backgroundColor = TypeColor.rock
-                            case "ghost":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Ghost")
-                                self.pokemonType2Text.text = "고스트"
-                                self.pokemonType2Background.backgroundColor = TypeColor.ghost
-                            case "dragon":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Dragon")
-                                self.pokemonType2Text.text = "드래곤"
-                                self.pokemonType2Background.backgroundColor = TypeColor.dragon
-                            case "dark":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Dark")
-                                self.pokemonType2Text.text = "악"
-                                self.pokemonType2Background.backgroundColor = TypeColor.dark
-                            case "steel":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Steel")
-                                self.pokemonType2Text.text = "강철"
-                                self.pokemonType2Background.backgroundColor = TypeColor.steel
-                            case "fairy":
-                                self.pokemonType2Icon.image = #imageLiteral(resourceName: "Fairy")
-                                self.pokemonType2Text.text = "페어리"
-                                self.pokemonType2Background.backgroundColor = TypeColor.fairy
-                            default:
-                                break
-                            }
+                            self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
                         }
 
                         guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
@@ -754,6 +454,85 @@ class TodaysPokemonViewController: UIViewController {
         }
 
         titleImageButton.addAction(action, for: .touchUpInside)
+    }
+
+    private func configureTypeComponent(type typeName: String, icon: UIImageView, typeText: UILabel, backgroundView: UIView) {
+        switch typeName {
+        case "normal":
+            icon.image = #imageLiteral(resourceName: "Normal")
+            typeText.text = "노말"
+            backgroundView.backgroundColor = TypeColor.normal
+        case "fire":
+            icon.image = #imageLiteral(resourceName: "Fire")
+            typeText.text = "불꽃"
+            backgroundView.backgroundColor = TypeColor.fire
+        case "water":
+            icon.image = #imageLiteral(resourceName: "Water")
+            typeText.text = "물"
+            backgroundView.backgroundColor = TypeColor.water
+        case "grass":
+            icon.image = #imageLiteral(resourceName: "Grass")
+            typeText.text = "풀"
+            backgroundView.backgroundColor = TypeColor.grass
+        case "electric":
+            icon.image = #imageLiteral(resourceName: "Electric")
+            typeText.text = "전기"
+            backgroundView.backgroundColor = TypeColor.electric
+        case "ice":
+            icon.image = #imageLiteral(resourceName: "Ice")
+            typeText.text = "얼음"
+            backgroundView.backgroundColor = TypeColor.ice
+        case "fighting":
+            icon.image = #imageLiteral(resourceName: "Fighting")
+            typeText.text = "격투"
+            backgroundView.backgroundColor = TypeColor.fighting
+        case "poison":
+            icon.image = #imageLiteral(resourceName: "Poison")
+            typeText.text = "독"
+            backgroundView.backgroundColor = TypeColor.poison
+        case "ground":
+            icon.image = #imageLiteral(resourceName: "Ground")
+            typeText.text = "땅"
+            backgroundView.backgroundColor = TypeColor.ground
+        case "flying":
+            icon.image = #imageLiteral(resourceName: "Flying")
+            typeText.text = "비행"
+            backgroundView.backgroundColor = TypeColor.flying
+        case "psychic":
+            icon.image = #imageLiteral(resourceName: "Psychic")
+            typeText.text = "에스퍼"
+            backgroundView.backgroundColor = TypeColor.psychic
+        case "bug":
+            icon.image = #imageLiteral(resourceName: "Bug")
+            typeText.text = "벌레"
+            backgroundView.backgroundColor = TypeColor.bug
+        case "rock":
+            icon.image = #imageLiteral(resourceName: "Rock")
+            typeText.text = "바위"
+            backgroundView.backgroundColor = TypeColor.rock
+        case "ghost":
+            icon.image = #imageLiteral(resourceName: "Ghost")
+            typeText.text = "고스트"
+            backgroundView.backgroundColor = TypeColor.ghost
+        case "dragon":
+            icon.image = #imageLiteral(resourceName: "Dragon")
+            typeText.text = "드래곤"
+            backgroundView.backgroundColor = TypeColor.dragon
+        case "dark":
+            icon.image = #imageLiteral(resourceName: "Dark")
+            typeText.text = "악"
+            backgroundView.backgroundColor = TypeColor.dark
+        case "steel":
+            icon.image = #imageLiteral(resourceName: "Steel")
+            typeText.text = "강철"
+            backgroundView.backgroundColor = TypeColor.steel
+        case "fairy":
+            icon.image = #imageLiteral(resourceName: "Fairy")
+            typeText.text = "페어리"
+            backgroundView.backgroundColor = TypeColor.fairy
+        default:
+            break
+        }
     }
 
 }
