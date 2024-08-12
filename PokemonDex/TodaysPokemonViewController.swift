@@ -286,7 +286,7 @@ class TodaysPokemonViewController: UIViewController {
             DispatchQueue.main.async {
                 self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
 
-                if !json.types.filter { $0.slot == 2 }.isEmpty {
+                if !json.types.filter({ $0.slot == 2 }).isEmpty {
                     self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
                 }
 
@@ -394,7 +394,7 @@ class TodaysPokemonViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.pokemonType1Icon, typeText: self.pokemonType1Text, backgroundView: self.pokemonType1Background)
 
-                        if !json.types.filter { $0.slot == 2 }.isEmpty {
+                        if !json.types.filter({ $0.slot == 2 }).isEmpty {
                             self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.pokemonType2Icon, typeText: self.pokemonType2Text, backgroundView: self.pokemonType2Background)
                         } else {
                             self.pokemonType2Icon.image = UIImage()
