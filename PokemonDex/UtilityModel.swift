@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct APIResource: Codable {
+    var url: String
+}
+
 struct FlavorText: Codable {
     var flavorText: String
     var language: NamedAPIResource
