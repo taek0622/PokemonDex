@@ -50,6 +50,30 @@ class PokemonDexViewController: UIViewController {
         let number = Int.random(in: 1...1025)
         todaysPokemonView.pokemonNumber.text = "No.\(number)"
 
+        guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png") else { return }
+        let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+        URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+            if let imageError {
+                print("Image Error: \(imageError.localizedDescription)")
+                return
+            }
+
+            guard let imageData else {
+                print("Image Error: Data Error")
+                return
+            }
+
+            guard let image = UIImage(data: imageData) else {
+                print("Image Data Error")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.todaysPokemonView.pokemonSprite.image = image
+            }
+        }.resume()
+
         guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
         let pokemonRequest = URLRequest(url: pokemonUrl)
 
@@ -75,31 +99,6 @@ class PokemonDexViewController: UIViewController {
                 if !json.types.filter({ $0.slot == 2 }).isEmpty {
                     self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.todaysPokemonView.pokemonType2Icon, typeText: self.todaysPokemonView.pokemonType2Text, backgroundView: self.todaysPokemonView.pokemonType2Background)
                 }
-
-                guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
-                guard let imageURL = URL(string: imageURLString) else { return }
-                let imageRequest = URLRequest(url: imageURL)
-
-                URLSession(configuration: .default).dataTask(with: imageRequest) { imageData, imageResponse, imageError in
-                    if let imageError {
-                        print("Image Error: \(imageError.localizedDescription)")
-                        return
-                    }
-
-                    guard let imageData else {
-                        print("Image Error: Data Error")
-                        return
-                    }
-
-                    guard let image = UIImage(data: imageData) else {
-                        print("Image Data Error")
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        self.todaysPokemonView.pokemonSprite.image = image
-                    }
-                }.resume()
             }
         }.resume()
 
@@ -158,6 +157,30 @@ class PokemonDexViewController: UIViewController {
                 let number = Int.random(in: 1...1025)
                 self.todaysPokemonView.pokemonNumber.text = "No.\(number)"
 
+                guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png") else { return }
+                let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+                URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+                    if let imageError {
+                        print("Image Error: \(imageError.localizedDescription)")
+                        return
+                    }
+
+                    guard let imageData else {
+                        print("Image Error: Data Error")
+                        return
+                    }
+
+                    guard let image = UIImage(data: imageData) else {
+                        print("Image Data Error")
+                        return
+                    }
+
+                    DispatchQueue.main.async {
+                        self.todaysPokemonView.pokemonSprite.image = image
+                    }
+                }.resume()
+
                 guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
                 let pokemonRequest = URLRequest(url: pokemonUrl)
 
@@ -187,31 +210,6 @@ class PokemonDexViewController: UIViewController {
                             self.todaysPokemonView.pokemonType2Text.text = ""
                             self.todaysPokemonView.pokemonType2Background.backgroundColor = .clear
                         }
-
-                        guard let imageURLString = json.sprites.other.officialArtwork.frontDefault else { return }
-                        guard let imageURL = URL(string: imageURLString) else { return }
-                        let imageRequest = URLRequest(url: imageURL)
-
-                        URLSession(configuration: .default).dataTask(with: imageRequest) { imageData, imageResponse, imageError in
-                            if let imageError {
-                                print("Image Error: \(imageError.localizedDescription)")
-                                return
-                            }
-
-                            guard let imageData else {
-                                print("Image Error: Data Error")
-                                return
-                            }
-
-                            guard let image = UIImage(data: imageData) else {
-                                print("Image Data Error")
-                                return
-                            }
-
-                            DispatchQueue.main.async {
-                                self.todaysPokemonView.pokemonSprite.image = image
-                            }
-                        }.resume()
                     }
                 }.resume()
 
