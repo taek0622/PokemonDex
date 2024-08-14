@@ -31,9 +31,6 @@ import Foundation
      var forms: [PokemonForm]
      /// 세대별 포켓몬과 관련된 게임 목록
      var gameIndices: [VersionGameIndex]
-     /// 해당 포켓몬을 야생에서 만났을 때 가지고 있을 수 있는 아이템 목록
-     var heldItems: [PokemonHeldItem]
-     var locationAreaEncounters: String
      /// 해당 포켓몬이 특정 버전에서 기술을 배우는 방법 및 레벨 등의 세부 정보를 포함한 기술 정보 목록
      var moves: [PokemonMove]
      /// 해당 포켓몬이 속한 종 (해당 포켓몬의 PokemonSpecies API url)
@@ -71,7 +68,6 @@ struct PokemonModel: Codable {
     var forms: [NamedAPIResource]
     /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
-    var locationAreaEncounters: String
     /// 해당 포켓몬이 특정 버전에서 기술을 배우는 방법 및 레벨 등의 세부 정보를 포함한 기술 정보 목록
     var moves: [PokemonMove]
     /// 해당 포켓몬이 속한 종 (해당 포켓몬의 PokemonSpecies API url)
@@ -98,7 +94,6 @@ struct PokemonModel: Codable {
         case abilities
         case forms
         case gameIndices = "game_indices"
-        case locationAreaEncounters = "location_area_encounters"
         case moves
         case species
         case sprites
