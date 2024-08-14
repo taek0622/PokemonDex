@@ -373,7 +373,6 @@ struct PokemonSpeciesModel: Codable {
     var isMythical: Bool
     var hasGenderDifferences: Bool
     var formsSwitchable: Bool
-    var growthRate: NamedAPIResource
     var pokedexNumbers: [PokemonSpeciesDexEntry]
     var evolvesFromSpecies: NamedAPIResource?
     var evolutionChain: APIResource?
@@ -394,7 +393,6 @@ struct PokemonSpeciesModel: Codable {
         case isMythical = "is_mythical"
         case hasGenderDifferences = "has_gender_differences"
         case formsSwitchable = "forms_switchable"
-        case growthRate = "growth_rate"
         case pokedexNumbers = "pokedex_numbers"
         case evolvesFromSpecies = "evolves_from_species"
         case evolutionChain = "evolution_chain"
