@@ -364,6 +364,8 @@ struct PokemonSpritesGenerationVIII: Codable {
     var icons: PokemonSpritesComponent
 }
 
+     var generation: NamedAPIResource?
+     var varieties: [PokemonSpeciesVariety]
 struct PokemonSpeciesModel: Codable {
     var id: Int
     var name: String
@@ -376,11 +378,9 @@ struct PokemonSpeciesModel: Codable {
     var pokedexNumbers: [PokemonSpeciesDexEntry]
     var evolvesFromSpecies: NamedAPIResource?
     var evolutionChain: APIResource?
-    var habitat: NamedAPIResource?
     var generation: NamedAPIResource?
     var names: [NameModel]
     var flavorTextEntries: [FlavorText]
-    var formDescriptions: [Description]
     var genera: [Genus]
     var varieties: [PokemonSpeciesVariety]
 
@@ -396,11 +396,9 @@ struct PokemonSpeciesModel: Codable {
         case pokedexNumbers = "pokedex_numbers"
         case evolvesFromSpecies = "evolves_from_species"
         case evolutionChain = "evolution_chain"
-        case habitat
         case generation
         case names
         case flavorTextEntries = "flavor_text_entries"
-        case formDescriptions = "form_descriptions"
         case genera
         case varieties
     }

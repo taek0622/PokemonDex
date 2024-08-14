@@ -11,11 +11,6 @@ struct APIResource: Codable {
     var url: String
 }
 
-struct Description: Codable {
-    var description: String
-    var language: NamedAPIResource
-}
-
 struct FlavorText: Codable {
     var flavorText: String
     var language: NamedAPIResource
