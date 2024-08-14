@@ -7,21 +7,6 @@
 
 import UIKit
 
-// 언어
-// 1: iso3166: jp, iso639: ja, name: ja-Hrkt, 일본어
-// 2: iso3166: jp, iso639: ja, name: roomaji, 정식 로마자
-// 3: iso3166: kr, iso639: ko, name: ko, 한국어
-// 4: iso3166: cn, iso639: zh, name: zh-Hant, 중국어  / 중국어 번체 (대만)
-// 5: iso3166: fr, iso639: fr, name: fr, 프랑스어
-// 6: iso3166: de, iso639: de, name: de, 도이치어
-// 7: iso3166: es, iso639: es, name: es, 스페인어
-// 8: iso3166: it, iso639: it, name: it, 이탈리아어
-// 9: iso3166: us, iso639: en, name: en, 영어
-// 10: iso3166: cz, iso639: cs, name: cs, 체코어
-// 11: iso3166: jp, iso639: ja, name: ja
-// 12: iso3166: cn, iso639: zh, name: zh-Hans  / 중국어 간체 (중국)
-// 13: iso3166: br, iso639: pt-BR, name: pt-BR
-
 class PokemonDexViewController: UIViewController {
 
     private let todaysPokemonView: TodaysPokemonView = {
