@@ -16,8 +16,6 @@ import Foundation
      var id: Int
      /// 포켓몬의 이름
      var name: String
-     /// 해당 포켓몬을 쓰러뜨렸을 때 얻는 기본 경험치
-     var baseExperience: Int
      /// 포켓몬의 키 (cm)
      var height: Int
      var isDefault: Bool
@@ -53,8 +51,6 @@ struct PokemonModel: Codable {
     var id: Int
     /// 포켓몬의 이름
     var name: String
-    /// 해당 포켓몬을 쓰러뜨렸을 때 얻는 기본 경험치
-    var baseExperience: Int
     /// 포켓몬의 키 (cm)
     var height: Int
     var isDefault: Bool
@@ -86,7 +82,6 @@ struct PokemonModel: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case baseExperience = "base_experience"
         case height
         case isDefault = "is_default"
         case order
@@ -373,20 +368,13 @@ struct PokemonSpeciesModel: Codable {
     var id: Int
     var name: String
     var order: Int
-    var genderRate: Int
-    var captureRate: Int
-    var baseHappiness: Int
     var isBaby: Bool
     var isLegendary: Bool
     var isMythical: Bool
-    var hatchCounter: Int
     var hasGenderDifferences: Bool
     var formsSwitchable: Bool
     var growthRate: NamedAPIResource
     var pokedexNumbers: [PokemonSpeciesDexEntry]
-    var eggGroups: [NamedAPIResource]
-    var color: NamedAPIResource?
-    var shape: NamedAPIResource?
     var evolvesFromSpecies: NamedAPIResource?
     var evolutionChain: APIResource?
     var habitat: NamedAPIResource?
@@ -401,20 +389,13 @@ struct PokemonSpeciesModel: Codable {
         case id
         case name
         case order
-        case genderRate = "gender_rate"
-        case captureRate = "capture_rate"
-        case baseHappiness = "base_happiness"
         case isBaby = "is_baby"
         case isLegendary = "is_legendary"
         case isMythical = "is_mythical"
-        case hatchCounter = "hatch_counter"
         case hasGenderDifferences = "has_gender_differences"
         case formsSwitchable = "forms_switchable"
         case growthRate = "growth_rate"
         case pokedexNumbers = "pokedex_numbers"
-        case eggGroups = "egg_groups"
-        case color
-        case shape
         case evolvesFromSpecies = "evolves_from_species"
         case evolutionChain = "evolution_chain"
         case habitat
