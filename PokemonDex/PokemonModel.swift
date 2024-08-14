@@ -364,24 +364,76 @@ struct PokemonSpritesGenerationVIII: Codable {
     var icons: PokemonSpritesComponent
 }
 
+/**
+ ```swift
+ struct PokemonSpeciesModel: Codable {
+     /// 포켓몬의 id
+     var id: Int
+     /// 포켓몬의 이름
+     var name: String
+     /// 정렬 순서. 같은 종의 서로 다른 폼 등이 그룹화되는 것을 제외하고는 거의 세대별 순서
+     var order: Int
+     /// 베이비 포켓몬 여부
+     var isBaby: Bool
+     /// 전설의 포켓몬 여부
+     var isLegendary: Bool
+     /// 환상의 포켓몬 여부
+     var isMythical: Bool
+     /// 해당 포켓몬의 성별별 다른 외형 여부
+     var hasGenderDifferences: Bool
+     /// 해당 포켓몬이 여러 형태를 가지고 있는지 여부
+     var formsSwitchable: Bool
+     /// 전국 도감 및 지역 도감 번호 목록
+     var pokedexNumbers: [PokemonSpeciesDexEntry]
+     /// 해당 포켓몬으로 진화하는 포켓몬
+     var evolvesFromSpecies: NamedAPIResource?
+     /// 해당 포켓몬의 진화 트리
+     var evolutionChain: APIResource?
+     /// 해당 포켓몬이 처음으로 추가된 세대
      var generation: NamedAPIResource?
+     /// 해당 포켓몬의 다국어 이름 목록
+     var names: [NameModel]
+     /// 해당 포켓몬의 다국어 및 버전별 도감 설명 목록
+     var flavorTextEntries: [FlavorText]
+     /// 해당 포켓몬의 다국어 분류 목록
+     var genera: [Genus]
+     /// 해당 포켓몬에 속하는 포켓몬 목록 (서브 폼)
      var varieties: [PokemonSpeciesVariety]
+ }
+ ```
+ */
 struct PokemonSpeciesModel: Codable {
+    /// 포켓몬의 id
     var id: Int
+    /// 포켓몬의 이름
     var name: String
+    /// 정렬 순서. 같은 종의 서로 다른 폼 등이 그룹화되는 것을 제외하고는 거의 세대별 순서
     var order: Int
+    /// 베이비 포켓몬 여부
     var isBaby: Bool
+    /// 전설의 포켓몬 여부
     var isLegendary: Bool
+    /// 환상의 포켓몬 여부
     var isMythical: Bool
+    /// 해당 포켓몬의 성별별 다른 외형 여부
     var hasGenderDifferences: Bool
+    /// 해당 포켓몬이 여러 형태를 가지고 있는지 여부
     var formsSwitchable: Bool
+    /// 전국 도감 및 지역 도감 번호 목록
     var pokedexNumbers: [PokemonSpeciesDexEntry]
+    /// 해당 포켓몬으로 진화하는 포켓몬
     var evolvesFromSpecies: NamedAPIResource?
+    /// 해당 포켓몬의 진화 트리
     var evolutionChain: APIResource?
+    /// 해당 포켓몬이 처음으로 추가된 세대
     var generation: NamedAPIResource?
+    /// 해당 포켓몬의 다국어 이름 목록
     var names: [NameModel]
+    /// 해당 포켓몬의 다국어 및 버전별 도감 설명 목록
     var flavorTextEntries: [FlavorText]
+    /// 해당 포켓몬의 다국어 분류 목록
     var genera: [Genus]
+    /// 해당 포켓몬에 속하는 포켓몬 목록 (서브 폼)
     var varieties: [PokemonSpeciesVariety]
 
     enum CodingKeys: String, CodingKey {
