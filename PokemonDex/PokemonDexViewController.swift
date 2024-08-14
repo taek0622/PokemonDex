@@ -47,86 +47,7 @@ class PokemonDexViewController: UIViewController {
             todaysPokemonView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
         ])
 
-        let number = Int.random(in: 1...1025)
-        todaysPokemonView.pokemonNumber.text = "No.\(number)"
-
-        guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png") else { return }
-        let pokemonImageRequest = URLRequest(url: pokemonImageURL)
-
-        URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
-            if let imageError {
-                print("Image Error: \(imageError.localizedDescription)")
-                return
-            }
-
-            guard let imageData else {
-                print("Image Error: Data Error")
-                return
-            }
-
-            guard let image = UIImage(data: imageData) else {
-                print("Image Data Error")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.todaysPokemonView.pokemonSprite.image = image
-            }
-        }.resume()
-
-        guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
-        let pokemonRequest = URLRequest(url: pokemonUrl)
-
-        URLSession(configuration: .default).dataTask(with: pokemonRequest) { data, response, error in
-            if let error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let data else {
-                print("Error: Request fail")
-                return
-            }
-
-            guard let json = try? JSONDecoder().decode(PokemonModel.self, from: data) else {
-                print("Error: Data Decoding error")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.todaysPokemonView.pokemonType1Icon, typeText: self.todaysPokemonView.pokemonType1Text, backgroundView: self.todaysPokemonView.pokemonType1Background)
-
-                if !json.types.filter({ $0.slot == 2 }).isEmpty {
-                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.todaysPokemonView.pokemonType2Icon, typeText: self.todaysPokemonView.pokemonType2Text, backgroundView: self.todaysPokemonView.pokemonType2Background)
-                }
-            }
-        }.resume()
-
-        guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(number)") else { return }
-        let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
-
-        URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
-            if let error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let data else {
-                print("Error: Request fail")
-                return
-            }
-
-            guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
-                print("Error: Data Decoding error")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.todaysPokemonView.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
-                self.todaysPokemonView.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
-                self.todaysPokemonView.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-            }
-        }.resume()
+        requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: todaysPokemonView.pokemonNumber, pokemonNameLabel: todaysPokemonView.pokemonName, pokemonGenusLabel: todaysPokemonView.pokemonGenus, pokemonDexDetail: todaysPokemonView.pokemonDexDetail, pokemonSprite: todaysPokemonView.pokemonSprite, type1Icon: todaysPokemonView.pokemonType1Icon, type1Text: todaysPokemonView.pokemonType1Text, type1Background: todaysPokemonView.pokemonType1Background, type2Icon: todaysPokemonView.pokemonType2Icon, type2Text: todaysPokemonView.pokemonType2Text, type2Background: todaysPokemonView.pokemonType2Background)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -154,95 +75,97 @@ class PokemonDexViewController: UIViewController {
 
             UIView.animate(withDuration: 1) {
                 self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
-                let number = Int.random(in: 1...1025)
-                self.todaysPokemonView.pokemonNumber.text = "No.\(number)"
-
-                guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png") else { return }
-                let pokemonImageRequest = URLRequest(url: pokemonImageURL)
-
-                URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
-                    if let imageError {
-                        print("Image Error: \(imageError.localizedDescription)")
-                        return
-                    }
-
-                    guard let imageData else {
-                        print("Image Error: Data Error")
-                        return
-                    }
-
-                    guard let image = UIImage(data: imageData) else {
-                        print("Image Data Error")
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        self.todaysPokemonView.pokemonSprite.image = image
-                    }
-                }.resume()
-
-                guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(number)") else { return }
-                let pokemonRequest = URLRequest(url: pokemonUrl)
-
-                URLSession(configuration: .default).dataTask(with: pokemonRequest) { data, response, error in
-                    if let error {
-                        print("Error: \(error.localizedDescription)")
-                        return
-                    }
-
-                    guard let data else {
-                        print("Error: Request fail")
-                        return
-                    }
-
-                    guard let json = try? JSONDecoder().decode(PokemonModel.self, from: data) else {
-                        print("Error: Data Decoding error")
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: self.todaysPokemonView.pokemonType1Icon, typeText: self.todaysPokemonView.pokemonType1Text, backgroundView: self.todaysPokemonView.pokemonType1Background)
-
-                        if !json.types.filter({ $0.slot == 2 }).isEmpty {
-                            self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: self.todaysPokemonView.pokemonType2Icon, typeText: self.todaysPokemonView.pokemonType2Text, backgroundView: self.todaysPokemonView.pokemonType2Background)
-                        } else {
-                            self.todaysPokemonView.pokemonType2Icon.image = UIImage()
-                            self.todaysPokemonView.pokemonType2Text.text = ""
-                            self.todaysPokemonView.pokemonType2Background.backgroundColor = .clear
-                        }
-                    }
-                }.resume()
-
-                guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(number)") else { return }
-                let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
-
-                URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
-                    if let error {
-                        print("Error: \(error.localizedDescription)")
-                        return
-                    }
-
-                    guard let data else {
-                        print("Error: Request fail")
-                        return
-                    }
-
-                    guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
-                        print("Error: Data Decoding error")
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        self.todaysPokemonView.pokemonName.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
-                        self.todaysPokemonView.pokemonGenus.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
-                        self.todaysPokemonView.pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-                        self.todaysPokemonView.pokemonDexDetail.setContentOffset(.zero, animated: false)
-                    }
-                }.resume()
+                self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: self.todaysPokemonView.pokemonNumber, pokemonNameLabel: self.todaysPokemonView.pokemonName, pokemonGenusLabel: self.todaysPokemonView.pokemonGenus, pokemonDexDetail: self.todaysPokemonView.pokemonDexDetail, pokemonSprite: self.todaysPokemonView.pokemonSprite, type1Icon: self.todaysPokemonView.pokemonType1Icon, type1Text: self.todaysPokemonView.pokemonType1Text, type1Background: self.todaysPokemonView.pokemonType1Background, type2Icon: self.todaysPokemonView.pokemonType2Icon, type2Text: self.todaysPokemonView.pokemonType2Text, type2Background: self.todaysPokemonView.pokemonType2Background)
             }
         }
 
         todaysPokemonView.titleImageButton.addAction(action, for: .touchUpInside)
+    }
+
+    private func requestPokemonDexData(pokemonDexNumber: Int, pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
+        pokemonNumberLabel.text = "No.\(pokemonDexNumber)"
+
+        guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
+        let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+        URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+            if let imageError {
+                print("Image Error: \(imageError.localizedDescription)")
+                return
+            }
+
+            guard let imageData else {
+                print("Image Error: Data Error")
+                return
+            }
+
+            guard let image = UIImage(data: imageData) else {
+                print("Image Data Error")
+                return
+            }
+
+            DispatchQueue.main.async {
+                pokemonSprite.image = image
+            }
+        }.resume()
+
+        guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonDexNumber)") else { return }
+        let pokemonRequest = URLRequest(url: pokemonUrl)
+
+        URLSession(configuration: .default).dataTask(with: pokemonRequest) { data, response, error in
+            if let error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data else {
+                print("Error: Request fail")
+                return
+            }
+
+            guard let json = try? JSONDecoder().decode(PokemonModel.self, from: data) else {
+                print("Error: Data Decoding error")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: type1Icon, typeText: type1Text, backgroundView: type1Background)
+
+                if !json.types.filter({ $0.slot == 2 }).isEmpty {
+                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: type2Icon, typeText: type2Text, backgroundView: type2Background)
+                } else {
+                    type2Icon.image = UIImage()
+                    type2Text.text = ""
+                    type2Background.backgroundColor = .clear
+                }
+            }
+        }.resume()
+
+        guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
+        let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
+
+        URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
+            if let error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data else {
+                print("Error: Request fail")
+                return
+            }
+
+            guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
+                print("Error: Data Decoding error")
+                return
+            }
+
+            DispatchQueue.main.async {
+                pokemonNameLabel.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
+                pokemonGenusLabel.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
+                pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
+            }
+        }.resume()
     }
 
     private func configureTypeComponent(type typeName: String, icon: UIImageView, typeText: UILabel, backgroundView: UIView) {
