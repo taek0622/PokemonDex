@@ -71,8 +71,6 @@ struct PokemonModel: Codable {
     var forms: [NamedAPIResource]
     /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
-    /// 해당 포켓몬을 야생에서 만났을 때 가지고 있을 수 있는 아이템 목록
-    var heldItems: [PokemonHeldItem]
     var locationAreaEncounters: String
     /// 해당 포켓몬이 특정 버전에서 기술을 배우는 방법 및 레벨 등의 세부 정보를 포함한 기술 정보 목록
     var moves: [PokemonMove]
@@ -100,7 +98,6 @@ struct PokemonModel: Codable {
         case abilities
         case forms
         case gameIndices = "game_indices"
-        case heldItems = "held_items"
         case locationAreaEncounters = "location_area_encounters"
         case moves
         case species
@@ -132,21 +129,6 @@ struct PokemonType: Codable {
 struct PokemonTypePast: Codable {
     var generation: NamedAPIResource
     var types: [PokemonType]
-}
-
-struct PokemonHeldItem: Codable {
-    var item: NamedAPIResource
-    var versionDetails: [PokemonHeldItemVersion]
-
-    enum CodingKeys: String, CodingKey {
-        case item
-        case versionDetails = "version_details"
-    }
-}
-
-struct PokemonHeldItemVersion: Codable {
-    var version: NamedAPIResource
-    var rarity: Int
 }
 
 struct PokemonMove: Codable {
