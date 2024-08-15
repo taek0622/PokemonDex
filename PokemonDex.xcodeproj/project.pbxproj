@@ -12,8 +12,11 @@
 		2610A3162C6546BF00BD3C5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3152C6546BF00BD3C5F /* ViewController.swift */; };
 		2610A31B2C6546C100BD3C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2610A31A2C6546C100BD3C5F /* Assets.xcassets */; };
 		2610A31E2C6546C100BD3C5F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 2610A31D2C6546C100BD3C5F /* Base */; };
-		2610A3262C65646000BD3C5F /* TodaysPokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3252C65646000BD3C5F /* TodaysPokemonViewController.swift */; };
+		2610A3262C65646000BD3C5F /* PokemonDexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3252C65646000BD3C5F /* PokemonDexViewController.swift */; };
 		2610A3282C659B1400BD3C5F /* TypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3272C659B1400BD3C5F /* TypeColor.swift */; };
+		2610A32E2C67A7AD00BD3C5F /* PokemonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A32D2C67A7AD00BD3C5F /* PokemonModel.swift */; };
+		2610A3302C67A86B00BD3C5F /* UtilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A32F2C67A86B00BD3C5F /* UtilityModel.swift */; };
+		2610A33C2C6D554600BD3C5F /* TodaysPokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A33B2C6D554600BD3C5F /* TodaysPokemonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +27,11 @@
 		2610A31A2C6546C100BD3C5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2610A31D2C6546C100BD3C5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2610A31F2C6546C100BD3C5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2610A3252C65646000BD3C5F /* TodaysPokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysPokemonViewController.swift; sourceTree = "<group>"; };
+		2610A3252C65646000BD3C5F /* PokemonDexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexViewController.swift; sourceTree = "<group>"; };
 		2610A3272C659B1400BD3C5F /* TypeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeColor.swift; sourceTree = "<group>"; };
+		2610A32D2C67A7AD00BD3C5F /* PokemonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonModel.swift; sourceTree = "<group>"; };
+		2610A32F2C67A86B00BD3C5F /* UtilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityModel.swift; sourceTree = "<group>"; };
+		2610A33B2C6D554600BD3C5F /* TodaysPokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysPokemonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +67,10 @@
 				2610A3112C6546BF00BD3C5F /* AppDelegate.swift */,
 				2610A3132C6546BF00BD3C5F /* SceneDelegate.swift */,
 				2610A3272C659B1400BD3C5F /* TypeColor.swift */,
-				2610A3252C65646000BD3C5F /* TodaysPokemonViewController.swift */,
+				2610A3252C65646000BD3C5F /* PokemonDexViewController.swift */,
+				2610A33B2C6D554600BD3C5F /* TodaysPokemonView.swift */,
+				2610A32D2C67A7AD00BD3C5F /* PokemonModel.swift */,
+				2610A32F2C67A86B00BD3C5F /* UtilityModel.swift */,
 				2610A3152C6546BF00BD3C5F /* ViewController.swift */,
 				2610A31A2C6546C100BD3C5F /* Assets.xcassets */,
 				2610A31C2C6546C100BD3C5F /* LaunchScreen.storyboard */,
@@ -140,11 +149,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2610A3262C65646000BD3C5F /* TodaysPokemonViewController.swift in Sources */,
+				2610A3262C65646000BD3C5F /* PokemonDexViewController.swift in Sources */,
 				2610A3162C6546BF00BD3C5F /* ViewController.swift in Sources */,
+				2610A33C2C6D554600BD3C5F /* TodaysPokemonView.swift in Sources */,
 				2610A3122C6546BF00BD3C5F /* AppDelegate.swift in Sources */,
+				2610A32E2C67A7AD00BD3C5F /* PokemonModel.swift in Sources */,
 				2610A3282C659B1400BD3C5F /* TypeColor.swift in Sources */,
 				2610A3142C6546BF00BD3C5F /* SceneDelegate.swift in Sources */,
+				2610A3302C67A86B00BD3C5F /* UtilityModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
