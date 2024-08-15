@@ -149,6 +149,7 @@ class PokemonDexViewController: UIViewController {
                 pokemonNameLabel.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
                 pokemonGenusLabel.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
                 pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
+                pokemonDexDetail.setContentOffset(.zero, animated: false)
             }
         }.resume()
     }
