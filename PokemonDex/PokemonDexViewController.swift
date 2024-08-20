@@ -39,6 +39,7 @@ class PokemonDexViewController: UIViewController {
             pokemonDexListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
+        configureDataSource()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -256,6 +257,96 @@ class PokemonDexViewController: UIViewController {
         section.boundarySupplementaryItems = [sectionHeader]
 
         return section
+    }
+
+    private func configureDataSource() {
+        let todaysPokemonCellRegistration = UICollectionView.CellRegistration<TodaysPokemonCell, Int> { (cell, indexPath, item) in
+            var buttonConfig = UIButton.Configuration.borderless()
+            buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
+            cell.titleImageButton.configuration = buttonConfig
+
+            self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+
+            let action = UIAction { _ in
+                UIView.animate(withDuration: 1) {
+                    cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
+                    cell.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
+                }
+
+                UIView.animate(withDuration: 1) {
+                    cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
+                    self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+                }
+            }
+
+            cell.titleImageButton.addAction(action, for: .touchUpInside)
+        }
+
+        let pokemonDexHeaderRegistration = UICollectionView.SupplementaryRegistration<PokemonDexHeader>(elementKind: PokemonDexHeader.identifier) { header, elementKind, indexPath in }
+
+        let pokemonDexGridCellRegistration = UICollectionView.CellRegistration<PokemonDexGridCell, Int> { (cell, indexPath, pokemonDexNumber) in
+            guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
+            let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+            URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+                if let imageError {
+                    print("Image Error: \(imageError.localizedDescription)")
+                    return
+                }
+
+                guard let imageData else {
+                    print("Image Error: Data Error")
+                    return
+                }
+
+                guard let image = UIImage(data: imageData) else {
+                    print("Image Data Error")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    cell.configureThumbnailImage(thumbnailImage: image)
+                }
+            }.resume()
+
+            guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
+            let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
+
+            URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
+                if let error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let data else {
+                    print("Error: Request fail")
+                    return
+                }
+
+                guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
+                    print("Error: Data Decoding error")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    cell.configureGridText(pokemonDexNumber: pokemonDexNumber, pokemonName: json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name)
+                }
+            }.resume()
+        }
+
+        pokemonDexGridDataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: pokemonDexListCollectionView, cellProvider: { collectionView, indexPath, item in
+            guard let section = Section(rawValue: indexPath.section) else { fatalError() }
+            switch section {
+                case .todaysPokemon:
+                    return collectionView.dequeueConfiguredReusableCell(using: todaysPokemonCellRegistration, for: indexPath, item: item)
+                case .pokemonDexGrid:
+                    return collectionView.dequeueConfiguredReusableCell(using: pokemonDexGridCellRegistration, for: indexPath, item: item)
+            }
+        })
+
+        pokemonDexGridDataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: pokemonDexHeaderRegistration, for: indexPath)
+        }
     }
 
 }
