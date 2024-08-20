@@ -1,5 +1,5 @@
 //
-//  TodaysPokemonView.swift
+//  TodaysPokemonCell.swift
 //  PokemonDex
 //
 //  Created by 김민택 on 8/15/24.
@@ -7,7 +7,9 @@
 
 import UIKit
 
-class TodaysPokemonView: UIView {
+class TodaysPokemonCell: UICollectionViewCell {
+
+    static let identifier = "TodaysPokemonCell"
 
     private let todaysPokemonStack: UIStackView = {
         $0.spacing = 0
@@ -19,6 +21,7 @@ class TodaysPokemonView: UIView {
     private let titleStack: UIStackView = {
         $0.spacing = 8
         $0.axis = .horizontal
+        $0.backgroundColor = .white
         $0.alignment = .leading
         $0.isLayoutMarginsRelativeArrangement = true
         $0.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
@@ -174,6 +177,7 @@ class TodaysPokemonView: UIView {
     }(UIImageView())
 
     private let todaysPokemonFooter: UIView = {
+        $0.backgroundColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
@@ -185,6 +189,16 @@ class TodaysPokemonView: UIView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    override func layoutSubviews() {
+        let dexBodyGradient = CAGradientLayer()
+        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
+        dexBodyGradient.locations = [0.0, 1.0]
+        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        dexBodyGradient.frame = bounds
+        layer.insertSublayer(dexBodyGradient, at: 0)
     }
 
     private func layout() {
