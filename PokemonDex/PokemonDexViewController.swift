@@ -16,8 +16,13 @@ class PokemonDexViewController: UIViewController {
 
     private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
 
+    private lazy var pokemonDexListCollectionView: UICollectionView = {
+        $0.backgroundColor = .clear
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
+    }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { section, env in
+        self.configureSection(for: section)
+    })))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +30,13 @@ class PokemonDexViewController: UIViewController {
 
         navigationItem.title = "PokemonDex"
 
+        view.addSubview(pokemonDexListCollectionView)
 
         NSLayoutConstraint.activate([
+            pokemonDexListCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            pokemonDexListCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            pokemonDexListCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            pokemonDexListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
     }
