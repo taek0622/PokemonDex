@@ -40,6 +40,7 @@ class PokemonDexViewController: UIViewController {
         ])
 
         configureDataSource()
+        applyPokemonDexGridSnapshot()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -347,6 +348,14 @@ class PokemonDexViewController: UIViewController {
         pokemonDexGridDataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             return collectionView.dequeueConfiguredReusableSupplementary(using: pokemonDexHeaderRegistration, for: indexPath)
         }
+    }
+
+    private func applyPokemonDexGridSnapshot() {
+        var snapshot = pokemonDexGridDataSource.snapshot()
+        snapshot.appendSections([.todaysPokemon, .pokemonDexGrid])
+        snapshot.appendItems([0], toSection: .todaysPokemon)
+        snapshot.appendItems(Array(1...1025), toSection: .pokemonDexGrid)
+        pokemonDexGridDataSource.apply(snapshot)
     }
 
 }
