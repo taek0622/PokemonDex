@@ -9,6 +9,13 @@ import UIKit
 
 class PokemonDexViewController: UIViewController {
 
+    enum Section: Int, CaseIterable {
+        case todaysPokemon
+        case pokemonDexGrid
+    }
+
+    private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
+
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
 
