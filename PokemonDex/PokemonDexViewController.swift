@@ -207,6 +207,17 @@ class PokemonDexViewController: UIViewController {
         }
     }
 
+    private func configureSection(for section: Int) -> NSCollectionLayoutSection {
+        switch section {
+            case 0:
+                return configureTodaysPokemonSection()
+            case 1:
+                return configurePokemonDexGridSection()
+            default:
+                return configureTodaysPokemonSection()
+        }
+    }
+
     private func configureTodaysPokemonSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
