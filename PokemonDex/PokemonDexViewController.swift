@@ -9,10 +9,8 @@ import UIKit
 
 class PokemonDexViewController: UIViewController {
 
-    private let todaysPokemonView: TodaysPokemonView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(TodaysPokemonView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,30 +18,13 @@ class PokemonDexViewController: UIViewController {
 
         navigationItem.title = "PokemonDex"
 
-        view.addSubview(todaysPokemonView)
-
-        var buttonConfig = UIButton.Configuration.borderless()
-        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-        todaysPokemonView.titleImageButton.configuration = buttonConfig
 
         NSLayoutConstraint.activate([
-            todaysPokemonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            todaysPokemonView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            todaysPokemonView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
         ])
 
-        requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: todaysPokemonView.pokemonNumber, pokemonNameLabel: todaysPokemonView.pokemonName, pokemonGenusLabel: todaysPokemonView.pokemonGenus, pokemonDexDetail: todaysPokemonView.pokemonDexDetail, pokemonSprite: todaysPokemonView.pokemonSprite, type1Icon: todaysPokemonView.pokemonType1Icon, type1Text: todaysPokemonView.pokemonType1Text, type1Background: todaysPokemonView.pokemonType1Background, type2Icon: todaysPokemonView.pokemonType2Icon, type2Text: todaysPokemonView.pokemonType2Text, type2Background: todaysPokemonView.pokemonType2Background)
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let dexBodyGradient = CAGradientLayer()
-        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
-        dexBodyGradient.locations = [0.0, 1.0]
-        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        dexBodyGradient.frame = todaysPokemonView.dexBodyBackground.bounds
-        todaysPokemonView.dexBodyBackground.layer.insertSublayer(dexBodyGradient, at: 0)
-
         let viewGradient = CAGradientLayer()
         viewGradient.colors = [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor]
         viewGradient.locations = [0.0, 1.0]
@@ -51,20 +32,6 @@ class PokemonDexViewController: UIViewController {
         viewGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
         viewGradient.frame = view.bounds
         view.layer.insertSublayer(viewGradient, at: 0)
-
-        let action = UIAction { _ in
-            UIView.animate(withDuration: 1) {
-                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self.todaysPokemonView.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
-            }
-
-            UIView.animate(withDuration: 1) {
-                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
-                self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: self.todaysPokemonView.pokemonNumber, pokemonNameLabel: self.todaysPokemonView.pokemonName, pokemonGenusLabel: self.todaysPokemonView.pokemonGenus, pokemonDexDetail: self.todaysPokemonView.pokemonDexDetail, pokemonSprite: self.todaysPokemonView.pokemonSprite, type1Icon: self.todaysPokemonView.pokemonType1Icon, type1Text: self.todaysPokemonView.pokemonType1Text, type1Background: self.todaysPokemonView.pokemonType1Background, type2Icon: self.todaysPokemonView.pokemonType2Icon, type2Text: self.todaysPokemonView.pokemonType2Text, type2Background: self.todaysPokemonView.pokemonType2Background)
-            }
-        }
-
-        todaysPokemonView.titleImageButton.addAction(action, for: .touchUpInside)
     }
 
     private func requestPokemonDexData(pokemonDexNumber: Int, pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
