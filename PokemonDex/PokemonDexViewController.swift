@@ -9,10 +9,20 @@ import UIKit
 
 class PokemonDexViewController: UIViewController {
 
-    private let todaysPokemonView: TodaysPokemonView = {
+    enum Section: Int, CaseIterable {
+        case todaysPokemon
+        case pokemonDexGrid
+    }
+
+    private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
+
+    private lazy var pokemonDexListCollectionView: UICollectionView = {
+        $0.backgroundColor = .clear
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(TodaysPokemonView())
+    }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { section, env in
+        self.configureSection(for: section)
+    })))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,30 +30,20 @@ class PokemonDexViewController: UIViewController {
 
         navigationItem.title = "PokemonDex"
 
-        view.addSubview(todaysPokemonView)
-
-        var buttonConfig = UIButton.Configuration.borderless()
-        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-        todaysPokemonView.titleImageButton.configuration = buttonConfig
+        view.addSubview(pokemonDexListCollectionView)
 
         NSLayoutConstraint.activate([
-            todaysPokemonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            todaysPokemonView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            todaysPokemonView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
+            pokemonDexListCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            pokemonDexListCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            pokemonDexListCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            pokemonDexListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: todaysPokemonView.pokemonNumber, pokemonNameLabel: todaysPokemonView.pokemonName, pokemonGenusLabel: todaysPokemonView.pokemonGenus, pokemonDexDetail: todaysPokemonView.pokemonDexDetail, pokemonSprite: todaysPokemonView.pokemonSprite, type1Icon: todaysPokemonView.pokemonType1Icon, type1Text: todaysPokemonView.pokemonType1Text, type1Background: todaysPokemonView.pokemonType1Background, type2Icon: todaysPokemonView.pokemonType2Icon, type2Text: todaysPokemonView.pokemonType2Text, type2Background: todaysPokemonView.pokemonType2Background)
+        configureDataSource()
+        applyPokemonDexGridSnapshot()
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let dexBodyGradient = CAGradientLayer()
-        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
-        dexBodyGradient.locations = [0.0, 1.0]
-        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        dexBodyGradient.frame = todaysPokemonView.dexBodyBackground.bounds
-        todaysPokemonView.dexBodyBackground.layer.insertSublayer(dexBodyGradient, at: 0)
-
         let viewGradient = CAGradientLayer()
         viewGradient.colors = [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor]
         viewGradient.locations = [0.0, 1.0]
@@ -51,20 +51,6 @@ class PokemonDexViewController: UIViewController {
         viewGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
         viewGradient.frame = view.bounds
         view.layer.insertSublayer(viewGradient, at: 0)
-
-        let action = UIAction { _ in
-            UIView.animate(withDuration: 1) {
-                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self.todaysPokemonView.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
-            }
-
-            UIView.animate(withDuration: 1) {
-                self.todaysPokemonView.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
-                self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: self.todaysPokemonView.pokemonNumber, pokemonNameLabel: self.todaysPokemonView.pokemonName, pokemonGenusLabel: self.todaysPokemonView.pokemonGenus, pokemonDexDetail: self.todaysPokemonView.pokemonDexDetail, pokemonSprite: self.todaysPokemonView.pokemonSprite, type1Icon: self.todaysPokemonView.pokemonType1Icon, type1Text: self.todaysPokemonView.pokemonType1Text, type1Background: self.todaysPokemonView.pokemonType1Background, type2Icon: self.todaysPokemonView.pokemonType2Icon, type2Text: self.todaysPokemonView.pokemonType2Text, type2Background: self.todaysPokemonView.pokemonType2Background)
-            }
-        }
-
-        todaysPokemonView.titleImageButton.addAction(action, for: .touchUpInside)
     }
 
     private func requestPokemonDexData(pokemonDexNumber: Int, pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
@@ -231,6 +217,145 @@ class PokemonDexViewController: UIViewController {
         default:
             break
         }
+    }
+
+    private func configureSection(for section: Int) -> NSCollectionLayoutSection {
+        switch section {
+            case 0:
+                return configureTodaysPokemonSection()
+            case 1:
+                return configurePokemonDexGridSection()
+            default:
+                return configureTodaysPokemonSection()
+        }
+    }
+
+    private func configureTodaysPokemonSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(3/4))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+
+        return section
+    }
+
+    private func configurePokemonDexGridSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(UIScreen.main.bounds.width / 3 + 8))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(8)
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 8
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: PokemonDexHeader.identifier, alignment: .top)
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
+
+    private func configureDataSource() {
+        let todaysPokemonCellRegistration = UICollectionView.CellRegistration<TodaysPokemonCell, Int> { (cell, indexPath, item) in
+            var buttonConfig = UIButton.Configuration.borderless()
+            buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
+            cell.titleImageButton.configuration = buttonConfig
+
+            self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+
+            let action = UIAction { _ in
+                UIView.animate(withDuration: 1) {
+                    cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
+                    cell.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
+                }
+
+                UIView.animate(withDuration: 1) {
+                    cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
+                    self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+                }
+            }
+
+            cell.titleImageButton.addAction(action, for: .touchUpInside)
+        }
+
+        let pokemonDexHeaderRegistration = UICollectionView.SupplementaryRegistration<PokemonDexHeader>(elementKind: PokemonDexHeader.identifier) { header, elementKind, indexPath in }
+
+        let pokemonDexGridCellRegistration = UICollectionView.CellRegistration<PokemonDexGridCell, Int> { (cell, indexPath, pokemonDexNumber) in
+            guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
+            let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+            URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+                if let imageError {
+                    print("Image Error: \(imageError.localizedDescription)")
+                    return
+                }
+
+                guard let imageData else {
+                    print("Image Error: Data Error")
+                    return
+                }
+
+                guard let image = UIImage(data: imageData) else {
+                    print("Image Data Error")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    cell.configureThumbnailImage(thumbnailImage: image)
+                }
+            }.resume()
+
+            guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
+            let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
+
+            URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
+                if let error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let data else {
+                    print("Error: Request fail")
+                    return
+                }
+
+                guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
+                    print("Error: Data Decoding error")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    cell.configureGridText(pokemonDexNumber: pokemonDexNumber, pokemonName: json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name)
+                }
+            }.resume()
+        }
+
+        pokemonDexGridDataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: pokemonDexListCollectionView, cellProvider: { collectionView, indexPath, item in
+            guard let section = Section(rawValue: indexPath.section) else { fatalError() }
+            switch section {
+                case .todaysPokemon:
+                    return collectionView.dequeueConfiguredReusableCell(using: todaysPokemonCellRegistration, for: indexPath, item: item)
+                case .pokemonDexGrid:
+                    return collectionView.dequeueConfiguredReusableCell(using: pokemonDexGridCellRegistration, for: indexPath, item: item)
+            }
+        })
+
+        pokemonDexGridDataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: pokemonDexHeaderRegistration, for: indexPath)
+        }
+    }
+
+    private func applyPokemonDexGridSnapshot() {
+        var snapshot = pokemonDexGridDataSource.snapshot()
+        snapshot.appendSections([.todaysPokemon, .pokemonDexGrid])
+        snapshot.appendItems([0], toSection: .todaysPokemon)
+        snapshot.appendItems(Array(1...1025), toSection: .pokemonDexGrid)
+        pokemonDexGridDataSource.apply(snapshot)
     }
 
 }
