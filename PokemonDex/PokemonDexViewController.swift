@@ -231,14 +231,17 @@ class PokemonDexViewController: UIViewController {
             self.requestPokemonDexData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
 
             let action = UIAction { _ in
+                Task {
+                    self.todaysPokemon = try await self.requestPokemonDexAsyncData(pokemonDexNumber: Int.random(in: 1...1025))
+                    self.requestPokemonDexData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+                }
+
                 UIView.animate(withDuration: 1) {
                     cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
-                    cell.pokemonSprite.image = #imageLiteral(resourceName: "MonsterBall")
                 }
 
                 UIView.animate(withDuration: 1) {
                     cell.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
-                    self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
                 }
             }
 
