@@ -315,6 +315,15 @@ class PokemonDexDetailView: UIView {
         }
     }
 
+    func configurePokemonSpeciesData(number: Int, name: String, genera: String, dexDetail: String) {
+        titleText.text = "#\(number) \(name)"
+        pokemonNumber.text = "No. \(number)"
+        pokemonName.text = name
+        pokemonGenus.text = genera
+        pokemonDexDetail.text = dexDetail
+        pokemonDexDetail.setContentOffset(.zero, animated: false)
+    }
+
     func configurePokemonType(typeName: String) -> (icon: UIImage, typeText: String, backgroundColor: UIColor) {
         switch typeName {
             case "normal":
