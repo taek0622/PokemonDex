@@ -370,6 +370,8 @@ class PokemonDexDetailView: UIView {
 
 class PokemonDexDetailViewController: UIViewController {
 
+    var selectedPokemon: PokemonInfo?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
