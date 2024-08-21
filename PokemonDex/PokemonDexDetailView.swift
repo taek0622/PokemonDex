@@ -9,6 +9,8 @@ import UIKit
 
 class PokemonDexDetailView: UIView {
 
+    // MAKR: - View
+
     private let pokemonDexStack: UIStackView = {
         $0.spacing = 0
         $0.axis = .vertical
@@ -185,6 +187,8 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIButton())
 
+    // MARK: - Initializer
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -193,6 +197,8 @@ class PokemonDexDetailView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    // MARK: - Life Cycle
 
     override func layoutSubviews() {
         let dexBodyGradient = CAGradientLayer()
@@ -203,6 +209,8 @@ class PokemonDexDetailView: UIView {
         dexBodyGradient.frame = bounds
         layer.insertSublayer(dexBodyGradient, at: 0)
     }
+
+    // MARK: - layout Method
 
     private func layout() {
         backgroundColor = .white
@@ -291,6 +299,8 @@ class PokemonDexDetailView: UIView {
         pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
         pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
     }
+
+    // MAKR: - Data Configure Method
 
     func configurePokemonSprite(imageData: Data) {
         guard let image = UIImage(data: imageData) else { return }
