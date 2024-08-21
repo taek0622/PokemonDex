@@ -292,6 +292,11 @@ class PokemonDexDetailView: UIView {
         pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
     }
 
+    func configurePokemonSprite(imageData: Data) {
+        guard let image = UIImage(data: imageData) else { return }
+        pokemonSprite.image = image
+    }
+
 }
 
 class PokemonDexDetailViewController: UIViewController {
