@@ -33,7 +33,7 @@ class PokemonDexViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.3042269349, green: 0.6989482641, blue: 0.9806881547, alpha: 1)
 
         navigationItem.title = "PokemonDex"
 
@@ -340,7 +340,9 @@ extension PokemonDexViewController: UICollectionViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
         if section == .pokemonDexGrid {
-            navigationController?.pushViewController(PokemonDexDetailViewController(), animated: true)
+            let pokemonDexDetailView = PokemonDexDetailViewController()
+            pokemonDexDetailView.selectedPokemon = PokemonInfo(id: indexPath.item + 1)
+            navigationController?.pushViewController(pokemonDexDetailView, animated: true)
         }
     }
 }
