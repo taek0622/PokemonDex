@@ -40,8 +40,11 @@ class PokemonDexViewController: UIViewController {
             pokemonDexListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        configureDataSource()
-        applyPokemonDexGridSnapshot()
+        Task {
+            todaysPokemon = try await requestPokemonDexAsyncData(pokemonDexNumber: Int.random(in: 1...1025))
+            configureDataSource()
+            applyPokemonDexGridSnapshot()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
