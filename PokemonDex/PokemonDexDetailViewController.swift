@@ -45,7 +45,7 @@ class PokemonDexDetailView: UIView {
     private let titleImageButton = UIButton()
 
     private let titleText: UILabel = {
-        $0.text = "오늘의 포켓몬"
+        $0.text = "#0 이름"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
