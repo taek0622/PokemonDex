@@ -14,6 +14,7 @@ class PokemonDexViewController: UIViewController {
         case pokemonDexGrid
     }
 
+    private var todaysPokemon = PokemonInfo(id: 0)
     private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
 
     private lazy var pokemonDexListCollectionView: UICollectionView = {
