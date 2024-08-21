@@ -54,91 +54,29 @@ class PokemonDexViewController: UIViewController {
         view.layer.insertSublayer(viewGradient, at: 0)
     }
 
-    private func requestPokemonDexData(pokemonDexNumber: Int, pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
-        pokemonNumberLabel.text = "No.\(pokemonDexNumber)"
 
-        guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
-        let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+    private func requestPokemonDexData(pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
+        pokemonNumberLabel.text = "No.\(todaysPokemon.id)"
+        guard let imageData = todaysPokemon.sprite, let image = UIImage(data: imageData) else { return }
+        pokemonSprite.image = image
 
-        URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
-            if let imageError {
-                print("Image Error: \(imageError.localizedDescription)")
-                return
-            }
+        guard let pokemonData = todaysPokemon.pokemon else { return }
+        configureTypeComponent(type: pokemonData.types.filter { $0.slot == 1 }[0].type.name, icon: type1Icon, typeText: type1Text, backgroundView: type1Background)
 
-            guard let imageData else {
-                print("Image Error: Data Error")
-                return
-            }
+        if !pokemonData.types.filter({ $0.slot == 2 }).isEmpty {
+            configureTypeComponent(type: pokemonData.types.filter { $0.slot == 2 }[0].type.name, icon: type2Icon, typeText: type2Text, backgroundView: type2Background)
+        } else {
+            type2Icon.image = UIImage()
+            type2Text.text = ""
+            type2Background.backgroundColor = .clear
+        }
 
-            guard let image = UIImage(data: imageData) else {
-                print("Image Data Error")
-                return
-            }
+        guard let pokemonSpecies = todaysPokemon.species else { return }
 
-            DispatchQueue.main.async {
-                pokemonSprite.image = image
-            }
-        }.resume()
-
-        guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonDexNumber)") else { return }
-        let pokemonRequest = URLRequest(url: pokemonUrl)
-
-        URLSession(configuration: .default).dataTask(with: pokemonRequest) { data, response, error in
-            if let error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let data else {
-                print("Error: Request fail")
-                return
-            }
-
-            guard let json = try? JSONDecoder().decode(PokemonModel.self, from: data) else {
-                print("Error: Data Decoding error")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.configureTypeComponent(type: json.types.filter { $0.slot == 1 }[0].type.name, icon: type1Icon, typeText: type1Text, backgroundView: type1Background)
-
-                if !json.types.filter({ $0.slot == 2 }).isEmpty {
-                    self.configureTypeComponent(type: json.types.filter { $0.slot == 2 }[0].type.name, icon: type2Icon, typeText: type2Text, backgroundView: type2Background)
-                } else {
-                    type2Icon.image = UIImage()
-                    type2Text.text = ""
-                    type2Background.backgroundColor = .clear
-                }
-            }
-        }.resume()
-
-        guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
-        let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
-
-        URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
-            if let error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let data else {
-                print("Error: Request fail")
-                return
-            }
-
-            guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
-                print("Error: Data Decoding error")
-                return
-            }
-
-            DispatchQueue.main.async {
-                pokemonNameLabel.text = json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name
-                pokemonGenusLabel.text = json.genera.filter { $0.language.name == "ko" }.isEmpty ? json.genera[0].genus : json.genera.filter { $0.language.name == "ko" }[0].genus
-                pokemonDexDetail.text = json.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? json.flavorTextEntries[0].flavorText : json.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-                pokemonDexDetail.setContentOffset(.zero, animated: false)
-            }
-        }.resume()
+        pokemonNameLabel.text = pokemonSpecies.names.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.names[0].name : pokemonSpecies.names.filter { $0.language.name == "ko" }[0].name
+        pokemonGenusLabel.text = pokemonSpecies.genera.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.genera[0].genus : pokemonSpecies.genera.filter { $0.language.name == "ko" }[0].genus
+        pokemonDexDetail.text = pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.flavorTextEntries[0].flavorText : pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
+        pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
 
     private func configureTypeComponent(type typeName: String, icon: UIImageView, typeText: UILabel, backgroundView: UIView) {
@@ -267,7 +205,7 @@ class PokemonDexViewController: UIViewController {
             buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
             cell.titleImageButton.configuration = buttonConfig
 
-            self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025), pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+            self.requestPokemonDexData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
 
             let action = UIAction { _ in
                 UIView.animate(withDuration: 1) {
