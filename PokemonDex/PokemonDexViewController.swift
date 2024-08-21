@@ -9,6 +9,8 @@ import UIKit
 
 class PokemonDexViewController: UIViewController {
 
+    // MARK: - Property
+
     enum Section: Int, CaseIterable {
         case todaysPokemon
         case pokemonDexGrid
@@ -17,6 +19,8 @@ class PokemonDexViewController: UIViewController {
     private var todaysPokemon = PokemonInfo(id: 0)
     private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
 
+    // MARK: - View
+
     private lazy var pokemonDexListCollectionView: UICollectionView = {
         $0.backgroundColor = .clear
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +28,8 @@ class PokemonDexViewController: UIViewController {
     }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { section, env in
         self.configureSection(for: section)
     })))
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +62,8 @@ class PokemonDexViewController: UIViewController {
         viewGradient.frame = view.bounds
         view.layer.insertSublayer(viewGradient, at: 0)
     }
+
+    // MARK: - Method
 
     private func requestPokemonDexAsyncData(pokemonDexNumber: Int) async throws -> PokemonInfo {
         guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { fatalError() }
