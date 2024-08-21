@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct PokemonInfo {
+    var id: Int
+    var pokemon: PokemonModel?
+    var species: PokemonSpeciesModel?
+    var sprite: Data?
+}
+
 /**
  포켓몬의 정보를 가져오는 데 필요한 데이터
  
