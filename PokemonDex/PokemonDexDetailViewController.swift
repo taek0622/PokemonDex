@@ -381,6 +381,13 @@ class PokemonDexDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.3042269349, green: 0.6989482641, blue: 0.9806881547, alpha: 1)
 
+        view.addSubview(pokemonDexDetailView)
+        NSLayoutConstraint.activate([
+            pokemonDexDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            pokemonDexDetailView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            pokemonDexDetailView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
+        ])
+
     }
 
 }
