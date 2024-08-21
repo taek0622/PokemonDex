@@ -54,6 +54,26 @@ class PokemonDexViewController: UIViewController {
         view.layer.insertSublayer(viewGradient, at: 0)
     }
 
+    private func requestPokemonDexAsyncData(pokemonDexNumber: Int) async throws -> PokemonInfo {
+        guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { fatalError() }
+        let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+
+        let (pokemonImageData, _) = try await URLSession(configuration: .default).data(for: pokemonImageRequest)
+
+        guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonDexNumber)") else { fatalError() }
+        let pokemonRequest = URLRequest(url: pokemonUrl)
+
+        let (pokemonData, _) = try await URLSession(configuration: .default).data(for: pokemonRequest)
+        let pokemonModel = try JSONDecoder().decode(PokemonModel.self, from: pokemonData)
+
+        guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { fatalError() }
+        let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
+
+        let (pokemonSpeciesData, _) = try await URLSession(configuration: .default).data(for: pokemonSpeciesRequest)
+        let pokemonSpeciesModel = try JSONDecoder().decode(PokemonSpeciesModel.self, from: pokemonSpeciesData)
+
+        return PokemonInfo(id: pokemonDexNumber, pokemon: pokemonModel, species: pokemonSpeciesModel, sprite: pokemonImageData)
+    }
 
     private func requestPokemonDexData(pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
         pokemonNumberLabel.text = "No.\(todaysPokemon.id)"
