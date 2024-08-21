@@ -297,6 +297,48 @@ class PokemonDexDetailView: UIView {
         pokemonSprite.image = image
     }
 
+    func configurePokemonType(typeName: String) -> (icon: UIImage, typeText: String, backgroundColor: UIColor) {
+        switch typeName {
+            case "normal":
+                return (#imageLiteral(resourceName: "Normal"), "노말", TypeColor.normal)
+            case "fire":
+                return (#imageLiteral(resourceName: "Fire"), "불꽃", TypeColor.fire)
+            case "water":
+                return(#imageLiteral(resourceName: "Water"), "물", TypeColor.water)
+            case "grass":
+                return (#imageLiteral(resourceName: "Grass"), "풀", TypeColor.grass)
+            case "electric":
+                return (#imageLiteral(resourceName: "Electric"), "전기", TypeColor.electric)
+            case "ice":
+                return (#imageLiteral(resourceName: "Ice"), "얼음", TypeColor.ice)
+            case "fighting":
+                return (#imageLiteral(resourceName: "Fighting"), "격투", TypeColor.fighting)
+            case "poison":
+                return (#imageLiteral(resourceName: "Poison"), "독", TypeColor.poison)
+            case "ground":
+                return (#imageLiteral(resourceName: "Ground"), "땅", TypeColor.ground)
+            case "flying":
+                return (#imageLiteral(resourceName: "Flying"), "비행", TypeColor.flying)
+            case "psychic":
+                return (#imageLiteral(resourceName: "Psychic"), "에스퍼", TypeColor.psychic)
+            case "bug":
+                return (#imageLiteral(resourceName: "Bug"), "벌레", TypeColor.bug)
+            case "rock":
+                return (#imageLiteral(resourceName: "Rock"), "바위", TypeColor.rock)
+            case "ghost":
+                return (#imageLiteral(resourceName: "Ghost"), "고스트", TypeColor.ghost)
+            case "dragon":
+                return (#imageLiteral(resourceName: "Dragon"), "드래곤", TypeColor.dragon)
+            case "dark":
+                return (#imageLiteral(resourceName: "Dark"), "악", TypeColor.dark)
+            case "steel":
+                return (#imageLiteral(resourceName: "Steel"), "강철", TypeColor.steel)
+            case "fairy":
+                return (#imageLiteral(resourceName: "Fairy"), "페어리", TypeColor.fairy)
+            default:
+                return (#imageLiteral(resourceName: "Normal"), "노말", TypeColor.normal)
+        }
+    }
 }
 
 class PokemonDexDetailViewController: UIViewController {
