@@ -297,6 +297,24 @@ class PokemonDexDetailView: UIView {
         pokemonSprite.image = image
     }
 
+    func configurePokemonData(type1: String, type2: String?) {
+        let configType1 = configurePokemonType(typeName: type1)
+        pokemonType1Icon.image = configType1.icon
+        pokemonType1Text.text = configType1.typeText
+        pokemonType1Background.backgroundColor = configType1.backgroundColor
+
+        if type2 != nil {
+            let configType2 = configurePokemonType(typeName: type2!)
+            pokemonType2Icon.image = configType2.icon
+            pokemonType2Text.text = configType2.typeText
+            pokemonType2Background.backgroundColor = configType2.backgroundColor
+        } else {
+            pokemonType2Icon.image = UIImage()
+            pokemonType2Text.text = ""
+            pokemonType2Background.backgroundColor = .clear
+        }
+    }
+
     func configurePokemonType(typeName: String) -> (icon: UIImage, typeText: String, backgroundColor: UIColor) {
         switch typeName {
             case "normal":
