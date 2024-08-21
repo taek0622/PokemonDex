@@ -47,7 +47,7 @@ class PokemonDexViewController: UIViewController {
         ])
 
         Task {
-            todaysPokemon = try await requestPokemonDexAsyncData(pokemonDexNumber: Int.random(in: 1...1025))
+            todaysPokemon = try await requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025))
             configureDataSource()
             applyPokemonDexGridSnapshot()
         }
@@ -65,7 +65,7 @@ class PokemonDexViewController: UIViewController {
 
     // MARK: - Method
 
-    private func requestPokemonDexAsyncData(pokemonDexNumber: Int) async throws -> PokemonInfo {
+    private func requestPokemonDexData(pokemonDexNumber: Int) async throws -> PokemonInfo {
         guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { fatalError() }
         let pokemonImageRequest = URLRequest(url: pokemonImageURL)
 
@@ -240,7 +240,7 @@ class PokemonDexViewController: UIViewController {
 
             let action = UIAction { _ in
                 Task {
-                    self.todaysPokemon = try await self.requestPokemonDexAsyncData(pokemonDexNumber: Int.random(in: 1...1025))
+                    self.todaysPokemon = try await self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025))
                     self.configureTodaysPokemonData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
                 }
 
