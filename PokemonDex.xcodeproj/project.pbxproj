@@ -19,6 +19,7 @@
 		2610A33C2C6D554600BD3C5F /* TodaysPokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A33B2C6D554600BD3C5F /* TodaysPokemonCell.swift */; };
 		2610A3462C721BA600BD3C5F /* PokemonDexGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3452C721BA600BD3C5F /* PokemonDexGridCell.swift */; };
 		2610A34A2C73384700BD3C5F /* PokemonDexHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3492C73384700BD3C5F /* PokemonDexHeader.swift */; };
+		2610A3502C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		2610A33B2C6D554600BD3C5F /* TodaysPokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysPokemonCell.swift; sourceTree = "<group>"; };
 		2610A3452C721BA600BD3C5F /* PokemonDexGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexGridCell.swift; sourceTree = "<group>"; };
 		2610A3492C73384700BD3C5F /* PokemonDexHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexHeader.swift; sourceTree = "<group>"; };
+		2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				2610A3132C6546BF00BD3C5F /* SceneDelegate.swift */,
 				2610A3272C659B1400BD3C5F /* TypeColor.swift */,
 				2610A3252C65646000BD3C5F /* PokemonDexViewController.swift */,
+				2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */,
 				2610A33B2C6D554600BD3C5F /* TodaysPokemonCell.swift */,
 				2610A3452C721BA600BD3C5F /* PokemonDexGridCell.swift */,
 				2610A3492C73384700BD3C5F /* PokemonDexHeader.swift */,
@@ -157,6 +160,7 @@
 			files = (
 				2610A3262C65646000BD3C5F /* PokemonDexViewController.swift in Sources */,
 				2610A3162C6546BF00BD3C5F /* ViewController.swift in Sources */,
+				2610A3502C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift in Sources */,
 				2610A33C2C6D554600BD3C5F /* TodaysPokemonCell.swift in Sources */,
 				2610A3122C6546BF00BD3C5F /* AppDelegate.swift in Sources */,
 				2610A32E2C67A7AD00BD3C5F /* PokemonModel.swift in Sources */,
