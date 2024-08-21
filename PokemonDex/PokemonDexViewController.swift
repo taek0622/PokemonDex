@@ -340,7 +340,9 @@ extension PokemonDexViewController: UICollectionViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
         if section == .pokemonDexGrid {
-            navigationController?.pushViewController(PokemonDexDetailViewController(), animated: true)
+            let pokemonDexDetailView = PokemonDexDetailViewController()
+            pokemonDexDetailView.selectedPokemon = PokemonInfo(id: indexPath.item + 1)
+            navigationController?.pushViewController(pokemonDexDetailView, animated: true)
         }
     }
 }
