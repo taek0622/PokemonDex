@@ -46,6 +46,8 @@ class PokemonDexViewController: UIViewController {
             pokemonDexListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
+        pokemonDexListCollectionView.delegate = self
+
         Task {
             todaysPokemon = try await requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025))
             configureDataSource()
@@ -331,4 +333,14 @@ class PokemonDexViewController: UIViewController {
         pokemonDexGridDataSource.apply(snapshot)
     }
 
+}
+
+extension PokemonDexViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else { return }
+
+        if section == .pokemonDexGrid {
+            navigationController?.pushViewController(PokemonDexDetailViewController(), animated: true)
+        }
+    }
 }
