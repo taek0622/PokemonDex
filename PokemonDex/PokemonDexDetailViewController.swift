@@ -372,6 +372,11 @@ class PokemonDexDetailViewController: UIViewController {
 
     var selectedPokemon: PokemonInfo?
 
+    private let pokemonDexDetailView: PokemonDexDetailView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(PokemonDexDetailView())
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
