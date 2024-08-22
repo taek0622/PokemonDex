@@ -167,12 +167,27 @@ class PokemonDexViewController: UIViewController {
             buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
             cell.titleImageButton.configuration = buttonConfig
 
-            self.configureTodaysPokemonData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+            guard let sprite = self.todaysPokemon.sprite else { return }
+            cell.configurePokemonSprite(imageData: sprite)
+
+            guard let pokemon = self.todaysPokemon.pokemon else { return }
+            cell.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
+
+            guard let species = self.todaysPokemon.species else { return }
+            cell.configurePokemonSpeciesData(number: self.todaysPokemon.id, name: species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
 
             let action = UIAction { _ in
                 Task {
                     self.todaysPokemon = try await self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025))
-                    self.configureTodaysPokemonData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+
+                    guard let sprite = self.todaysPokemon.sprite else { return }
+                    cell.configurePokemonSprite(imageData: sprite)
+
+                    guard let pokemon = self.todaysPokemon.pokemon else { return }
+                    cell.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
+
+                    guard let species = self.todaysPokemon.species else { return }
+                    cell.configurePokemonSpeciesData(number: self.todaysPokemon.id, name: species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
                 }
 
                 UIView.animate(withDuration: 1) {
