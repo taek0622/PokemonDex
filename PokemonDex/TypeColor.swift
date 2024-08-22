@@ -7,6 +7,28 @@
 
 import UIKit
 
+enum PokemonType: String {
+    case normal = "normal"
+    case fire = "fire"
+    case water = "water"
+    case grass = "grass"
+    case electric = "electric"
+    case ice = "ice"
+    case fighting = "fighting"
+    case poison = "poison"
+    case ground = "ground"
+    case flying = "flying"
+    case psychic = "psychic"
+    case bug = "bug"
+    case rock = "rock"
+    case ghost = "ghost"
+    case dragon = "dragon"
+    case dark = "dark"
+    case steel = "steel"
+    case fairy = "fairy"
+
+}
+
 enum TypeColor {
     static let normal = #colorLiteral(red: 0.5764705882, green: 0.6, blue: 0.6235294118, alpha: 1)
     static let fire = #colorLiteral(red: 0.9137254902, green: 0.6274509804, blue: 0.3490196078, alpha: 1)
