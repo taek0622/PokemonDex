@@ -68,6 +68,47 @@ enum PokemonType: String {
         }
     }
 
+    func configureTypeIcon() -> UIImage {
+        switch self {
+            case .normal:
+                return #imageLiteral(resourceName: "Normal")
+            case .fire:
+                return #imageLiteral(resourceName: "Fire")
+            case .water:
+                return #imageLiteral(resourceName: "Water")
+            case .grass:
+                return #imageLiteral(resourceName: "Grass")
+            case .electric:
+                return #imageLiteral(resourceName: "Electric")
+            case .ice:
+                return #imageLiteral(resourceName: "Ice")
+            case .fighting:
+                return #imageLiteral(resourceName: "Fighting")
+            case .poison:
+                return #imageLiteral(resourceName: "Poison")
+            case .ground:
+                return #imageLiteral(resourceName: "Ground")
+            case .flying:
+                return #imageLiteral(resourceName: "Flying")
+            case .psychic:
+                return #imageLiteral(resourceName: "Psychic")
+            case .bug:
+                return #imageLiteral(resourceName: "Bug")
+            case .rock:
+                return #imageLiteral(resourceName: "Rock")
+            case .ghost:
+                return #imageLiteral(resourceName: "Ghost")
+            case .dragon:
+                return #imageLiteral(resourceName: "Dragon")
+            case .dark:
+                return #imageLiteral(resourceName: "Dark")
+            case .steel:
+                return #imageLiteral(resourceName: "Steel")
+            case .fairy:
+                return #imageLiteral(resourceName: "Fairy")
+        }
+    }
+
 }
 
 enum TypeColor {
