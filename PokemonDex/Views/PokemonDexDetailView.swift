@@ -308,16 +308,16 @@ class PokemonDexDetailView: UIView {
     }
 
     func configurePokemonData(type1: String, type2: String?) {
-        let configType1 = configurePokemonType(typeName: type1)
-        pokemonType1Icon.image = configType1.icon
-        pokemonType1Text.text = configType1.typeText
-        pokemonType1Background.backgroundColor = configType1.backgroundColor
+        let pokemonType1 = PokemonType(rawValue: type1)
+        pokemonType1Icon.image = pokemonType1?.configureTypeIcon()
+        pokemonType1Text.text = pokemonType1?.configureTypeText()
+        pokemonType1Background.backgroundColor = pokemonType1?.configureTypeColor()
 
         if type2 != nil {
-            let configType2 = configurePokemonType(typeName: type2!)
-            pokemonType2Icon.image = configType2.icon
-            pokemonType2Text.text = configType2.typeText
-            pokemonType2Background.backgroundColor = configType2.backgroundColor
+            let pokemonType2 = PokemonType(rawValue: type2!)
+            pokemonType2Icon.image = pokemonType2?.configureTypeIcon()
+            pokemonType2Text.text = pokemonType2?.configureTypeText()
+            pokemonType2Background.backgroundColor = pokemonType2?.configureTypeColor()
         } else {
             pokemonType2Icon.image = UIImage()
             pokemonType2Text.text = ""
