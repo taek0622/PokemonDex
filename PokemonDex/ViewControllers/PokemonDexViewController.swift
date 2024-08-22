@@ -94,10 +94,16 @@ class PokemonDexViewController: UIViewController {
         pokemonSprite.image = image
 
         guard let pokemonData = todaysPokemon.pokemon else { return }
-        configureTypeComponent(type: pokemonData.types.filter { $0.slot == 1 }[0].type.name, icon: type1Icon, typeText: type1Text, backgroundView: type1Background)
+        let type1 = PokemonType(rawValue: pokemonData.types.filter { $0.slot == 1 }[0].type.name)
+        type1Icon.image = type1?.configureTypeIcon()
+        type1Text.text = type1?.configureTypeText()
+        type1Background.backgroundColor = type1?.configureTypeColor()
 
         if !pokemonData.types.filter({ $0.slot == 2 }).isEmpty {
-            configureTypeComponent(type: pokemonData.types.filter { $0.slot == 2 }[0].type.name, icon: type2Icon, typeText: type2Text, backgroundView: type2Background)
+            let type2 = PokemonType(rawValue: pokemonData.types.filter { $0.slot == 2 }[0].type.name)
+            type2Icon.image = type2?.configureTypeIcon()
+            type2Text.text = type2?.configureTypeText()
+            type2Background.backgroundColor = type2?.configureTypeColor()
         } else {
             type2Icon.image = UIImage()
             type2Text.text = ""
