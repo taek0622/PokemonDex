@@ -29,7 +29,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let dexBodyBackground: UIView = {
+    private let dexBodyBackground: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
@@ -46,7 +46,7 @@ class TodaysPokemonCell: UICollectionViewCell {
 
     let titleImageButton = UIButton()
 
-    let titleText: UILabel = {
+    private let titleText: UILabel = {
         $0.text = "오늘의 포켓몬"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonNumber: UILabel = {
+    private let pokemonNumber: UILabel = {
         $0.text = "No."
         $0.font = .systemFont(ofSize: 15)
         $0.textColor = .white
@@ -70,16 +70,16 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UILabel())
 
-    let pokemonName: UILabel = {
         $0.text = ""
+    private let pokemonName: UILabel = {
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonGenus: UILabel = {
         $0.text = "포켓몬"
+    private let pokemonGenus: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +99,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIView())
 
-    let pokemonType1Background: UIView = {
+    private let pokemonType1Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -115,20 +115,20 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonType1Icon: UIImageView = {
+    private let pokemonType1Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    let pokemonType1Text: UILabel = {
+    private let pokemonType1Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonType2Background: UIView = {
+    private let pokemonType2Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -144,21 +144,21 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonType2Icon: UIImageView = {
+    private let pokemonType2Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    let pokemonType2Text: UILabel = {
+    private let pokemonType2Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonDexDetail: UITextView = {
         $0.text = "설명"
+    private let pokemonDexDetail: UITextView = {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
         $0.backgroundColor = .clear
@@ -169,7 +169,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UITextView())
 
-    let pokemonSprite: UIImageView = {
+    private let pokemonSprite: UIImageView = {
         $0.image = #imageLiteral(resourceName: "MonsterBall")
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
