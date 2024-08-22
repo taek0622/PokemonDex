@@ -9,7 +9,11 @@ import UIKit
 
 class TodaysPokemonCell: UICollectionViewCell {
 
+    // MARK: - Property
+
     static let identifier = "TodaysPokemonCell"
+
+    // MARK: - View
 
     private let todaysPokemonStack: UIStackView = {
         $0.spacing = 0
@@ -182,6 +186,8 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIView())
 
+    // MARK: - Initializer
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -190,6 +196,8 @@ class TodaysPokemonCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    // MARK: - Life Cycle
 
     override func layoutSubviews() {
         let dexBodyGradient = CAGradientLayer()
@@ -200,6 +208,8 @@ class TodaysPokemonCell: UICollectionViewCell {
         dexBodyGradient.frame = bounds
         layer.insertSublayer(dexBodyGradient, at: 0)
     }
+
+    // MARK: - Method
 
     private func layout() {
         backgroundColor = .white
