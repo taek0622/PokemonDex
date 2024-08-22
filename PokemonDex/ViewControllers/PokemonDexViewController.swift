@@ -88,36 +88,6 @@ class PokemonDexViewController: UIViewController {
         return PokemonInfo(id: pokemonDexNumber, pokemon: pokemonModel, species: pokemonSpeciesModel, sprite: pokemonImageData)
     }
 
-    private func configureTodaysPokemonData(pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
-        pokemonNumberLabel.text = "No.\(todaysPokemon.id)"
-        guard let imageData = todaysPokemon.sprite, let image = UIImage(data: imageData) else { return }
-        pokemonSprite.image = image
-
-        guard let pokemonData = todaysPokemon.pokemon else { return }
-        let type1 = PokemonType(rawValue: pokemonData.types.filter { $0.slot == 1 }[0].type.name)
-        type1Icon.image = type1?.configureTypeIcon()
-        type1Text.text = type1?.configureTypeText()
-        type1Background.backgroundColor = type1?.configureTypeColor()
-
-        if !pokemonData.types.filter({ $0.slot == 2 }).isEmpty {
-            let type2 = PokemonType(rawValue: pokemonData.types.filter { $0.slot == 2 }[0].type.name)
-            type2Icon.image = type2?.configureTypeIcon()
-            type2Text.text = type2?.configureTypeText()
-            type2Background.backgroundColor = type2?.configureTypeColor()
-        } else {
-            type2Icon.image = UIImage()
-            type2Text.text = ""
-            type2Background.backgroundColor = .clear
-        }
-
-        guard let pokemonSpecies = todaysPokemon.species else { return }
-
-        pokemonNameLabel.text = pokemonSpecies.names.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.names[0].name : pokemonSpecies.names.filter { $0.language.name == "ko" }[0].name
-        pokemonGenusLabel.text = pokemonSpecies.genera.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.genera[0].genus : pokemonSpecies.genera.filter { $0.language.name == "ko" }[0].genus
-        pokemonDexDetail.text = pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.flavorTextEntries[0].flavorText : pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-        pokemonDexDetail.setContentOffset(.zero, animated: false)
-    }
-
     // MARK: - UICollectionViewCompositionalLayout Configure Method
 
     private func configureSection(for section: Int) -> NSCollectionLayoutSection {
