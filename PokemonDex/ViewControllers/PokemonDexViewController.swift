@@ -133,10 +133,6 @@ class PokemonDexViewController: UIViewController {
 
     private func configureDataSource() {
         let todaysPokemonCellRegistration = UICollectionView.CellRegistration<TodaysPokemonCell, Int> { (cell, indexPath, item) in
-            var buttonConfig = UIButton.Configuration.borderless()
-            buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-            cell.titleImageButton.configuration = buttonConfig
-
             guard let sprite = self.todaysPokemon.sprite else { return }
             cell.configurePokemonSprite(imageData: sprite)
 
