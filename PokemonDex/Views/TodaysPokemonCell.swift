@@ -271,4 +271,38 @@ class TodaysPokemonCell: UICollectionViewCell {
             todaysPokemonFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor)
         ])
     }
+
+    // MARK: - Data Configure Method
+
+    func configurePokemonSprite(imageData: Data) {
+        guard let image = UIImage(data: imageData) else { return }
+        pokemonSprite.image = image
+    }
+
+    func configurePokemonData(type1: String, type2: String?) {
+        let pokemonType1 = PokemonType(rawValue: type1)
+        pokemonType1Icon.image = pokemonType1?.configureTypeIcon()
+        pokemonType1Text.text = pokemonType1?.configureTypeText()
+        pokemonType1Background.backgroundColor = pokemonType1?.configureTypeColor()
+
+        if type2 != nil {
+            let pokemonType2 = PokemonType(rawValue: type2!)
+            pokemonType2Icon.image = pokemonType2?.configureTypeIcon()
+            pokemonType2Text.text = pokemonType2?.configureTypeText()
+            pokemonType2Background.backgroundColor = pokemonType2?.configureTypeColor()
+        } else {
+            pokemonType2Icon.image = UIImage()
+            pokemonType2Text.text = ""
+            pokemonType2Background.backgroundColor = .clear
+        }
+    }
+
+    func configurePokemonSpeciesData(number: Int, name: String, genera: String, dexDetail: String) {
+        pokemonNumber.text = "No. \(number)"
+        pokemonName.text = name
+        pokemonGenus.text = genera
+        pokemonDexDetail.text = dexDetail
+        pokemonDexDetail.setContentOffset(.zero, animated: false)
+    }
+
 }
