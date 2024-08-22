@@ -71,7 +71,7 @@ class PokemonDexDetailView: UIView {
     }(UILabel())
 
     private let pokemonName: UILabel = {
-        $0.text = ""
+        $0.text = "포켓몬 이름"
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +79,7 @@ class PokemonDexDetailView: UIView {
     }(UILabel())
 
     private let pokemonGenus: UILabel = {
-        $0.text = "포켓몬"
+        $0.text = "포켓몬 종류"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -158,7 +158,7 @@ class PokemonDexDetailView: UIView {
     }(UILabel())
 
     private let pokemonDexDetail: UITextView = {
-        $0.text = "설명"
+        $0.text = "도감 설명"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
         $0.backgroundColor = .clear
