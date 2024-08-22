@@ -47,7 +47,7 @@ struct PokemonInfo {
      /// 해당 포켓몬의 종족값 목록
      var stats: [PokemonStat]
      /// 해당 포켓몬이 가진 타입 목록
-     var types: [PokemonType]
+     var types: [PokemonTypeModel]
      /// 해당 포켓몬이 이전 세대에서 가졌던 타입 목록
      var pastTypes: [PokemonTypePast]
  }
@@ -82,7 +82,7 @@ struct PokemonModel: Codable {
     /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
     /// 해당 포켓몬이 가진 타입 목록
-    var types: [PokemonType]
+    var types: [PokemonTypeModel]
     /// 해당 포켓몬이 이전 세대에서 가졌던 타입 목록
     var pastTypes: [PokemonTypePast]
 
@@ -118,14 +118,14 @@ struct PokemonAbility: Codable {
     }
 }
 
-struct PokemonType: Codable {
+struct PokemonTypeModel: Codable {
     var slot: Int
     var type: NamedAPIResource
 }
 
 struct PokemonTypePast: Codable {
     var generation: NamedAPIResource
-    var types: [PokemonType]
+    var types: [PokemonTypeModel]
 }
 
 struct PokemonMove: Codable {

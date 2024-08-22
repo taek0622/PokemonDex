@@ -1,17 +1,17 @@
 //
-//  TodaysPokemonCell.swift
+//  PokemonDexDetailView.swift
 //  PokemonDex
 //
-//  Created by 김민택 on 8/15/24.
+//  Created by 김민택 on 8/22/24.
 //
 
 import UIKit
 
-class TodaysPokemonCell: UICollectionViewCell {
+class PokemonDexDetailView: UIView {
 
-    static let identifier = "TodaysPokemonCell"
+    // MAKR: - View
 
-    private let todaysPokemonStack: UIStackView = {
+    private let pokemonDexStack: UIStackView = {
         $0.spacing = 0
         $0.axis = .vertical
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let dexBodyBackground: UIView = {
+    private let dexBodyBackground: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
@@ -44,10 +44,10 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let titleImageButton = UIButton()
+    private let titleImageButton = UIButton()
 
-    let titleText: UILabel = {
-        $0.text = "오늘의 포켓몬"
+    private let titleText: UILabel = {
+        $0.text = "#0 이름"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -62,7 +62,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonNumber: UILabel = {
+    private let pokemonNumber: UILabel = {
         $0.text = "No."
         $0.font = .systemFont(ofSize: 15)
         $0.textColor = .white
@@ -70,16 +70,16 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UILabel())
 
-    let pokemonName: UILabel = {
-        $0.text = ""
+    private let pokemonName: UILabel = {
+        $0.text = "포켓몬 이름"
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonGenus: UILabel = {
-        $0.text = "포켓몬"
+    private let pokemonGenus: UILabel = {
+        $0.text = "포켓몬 종류"
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +99,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIView())
 
-    let pokemonType1Background: UIView = {
+    private let pokemonType1Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -115,20 +115,20 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonType1Icon: UIImageView = {
+    private let pokemonType1Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    let pokemonType1Text: UILabel = {
+    private let pokemonType1Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonType2Background: UIView = {
+    private let pokemonType2Background: UIView = {
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -144,21 +144,21 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UIStackView())
 
-    let pokemonType2Icon: UIImageView = {
+    private let pokemonType2Icon: UIImageView = {
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    let pokemonType2Text: UILabel = {
+    private let pokemonType2Text: UILabel = {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    let pokemonDexDetail: UITextView = {
-        $0.text = "설명"
+    private let pokemonDexDetail: UITextView = {
+        $0.text = "도감 설명"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
         $0.backgroundColor = .clear
@@ -169,18 +169,25 @@ class TodaysPokemonCell: UICollectionViewCell {
         return $0
     }(UITextView())
 
-    let pokemonSprite: UIImageView = {
+    private let pokemonSprite: UIImageView = {
         $0.image = #imageLiteral(resourceName: "MonsterBall")
         $0.contentMode = .scaleToFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
-    private let todaysPokemonFooter: UIView = {
+    private let pokemonDexFooter: UIView = {
         $0.backgroundColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
+
+    private let pokemonDexTypeSelectionButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIButton())
+
+    // MARK: - Initializer
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -190,6 +197,8 @@ class TodaysPokemonCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    // MARK: - Life Cycle
 
     override func layoutSubviews() {
         let dexBodyGradient = CAGradientLayer()
@@ -201,16 +210,18 @@ class TodaysPokemonCell: UICollectionViewCell {
         layer.insertSublayer(dexBodyGradient, at: 0)
     }
 
+    // MARK: - layout Method
+
     private func layout() {
         backgroundColor = .white
         layer.cornerRadius = 16
         layer.masksToBounds = true
 
-        addSubview(todaysPokemonStack)
+        addSubview(pokemonDexStack)
 
-        todaysPokemonStack.addArrangedSubview(titleStack)
-        todaysPokemonStack.addArrangedSubview(dexBodyBackground)
-        todaysPokemonStack.addArrangedSubview(todaysPokemonFooter)
+        pokemonDexStack.addArrangedSubview(titleStack)
+        pokemonDexStack.addArrangedSubview(dexBodyBackground)
+        pokemonDexStack.addArrangedSubview(pokemonDexFooter)
         dexBodyBackground.addSubview(dexBodyStack)
 
         titleStack.addArrangedSubview(titleImageButton)
@@ -239,15 +250,17 @@ class TodaysPokemonCell: UICollectionViewCell {
         pokemonType2Stack.addArrangedSubview(pokemonType2Icon)
         pokemonType2Stack.addArrangedSubview(pokemonType2Text)
 
+        pokemonDexFooter.addSubview(pokemonDexTypeSelectionButton)
+
         var buttonConfig = UIButton.Configuration.borderless()
         buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
         titleImageButton.configuration = buttonConfig
 
         NSLayoutConstraint.activate([
-            todaysPokemonStack.topAnchor.constraint(equalTo: topAnchor),
-            todaysPokemonStack.leftAnchor.constraint(equalTo: leftAnchor),
-            todaysPokemonStack.bottomAnchor.constraint(equalTo: bottomAnchor),
-            todaysPokemonStack.rightAnchor.constraint(equalTo: rightAnchor),
+            pokemonDexStack.topAnchor.constraint(equalTo: topAnchor),
+            pokemonDexStack.leftAnchor.constraint(equalTo: leftAnchor),
+            pokemonDexStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            pokemonDexStack.rightAnchor.constraint(equalTo: rightAnchor),
             dexBodyStack.topAnchor.constraint(equalTo: dexBodyBackground.topAnchor),
             dexBodyStack.leftAnchor.constraint(equalTo: dexBodyBackground.leftAnchor),
             dexBodyStack.bottomAnchor.constraint(equalTo: dexBodyBackground.bottomAnchor),
@@ -268,7 +281,56 @@ class TodaysPokemonCell: UICollectionViewCell {
             pokemonType2Icon.heightAnchor.constraint(equalToConstant: 17),
             pokemonDexDetail.widthAnchor.constraint(equalTo: dexBodyDetailStack.widthAnchor),
             pokemonSprite.heightAnchor.constraint(equalTo: pokemonSprite.widthAnchor),
-            todaysPokemonFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor)
+            pokemonDexFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor),
+            pokemonDexTypeSelectionButton.topAnchor.constraint(equalTo: pokemonDexFooter.topAnchor, constant: 4),
+            pokemonDexTypeSelectionButton.leftAnchor.constraint(greaterThanOrEqualTo: pokemonDexFooter.leftAnchor, constant: 16),
+            pokemonDexTypeSelectionButton.bottomAnchor.constraint(equalTo: pokemonDexFooter.bottomAnchor, constant: -4),
+            pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16)
         ])
+
+        pokemonDexTypeSelectionButton.layer.borderColor = UIColor.red.cgColor
+        pokemonDexTypeSelectionButton.layer.borderWidth = 2
+        pokemonDexTypeSelectionButton.layer.cornerRadius = 16
+
+        var dexTypeButtonConfig = UIButton.Configuration.bordered()
+        dexTypeButtonConfig.title = "스칼렛"
+        dexTypeButtonConfig.baseForegroundColor = .red
+        dexTypeButtonConfig.baseBackgroundColor = .white
+        pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
+        pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
+    }
+
+    // MAKR: - Data Configure Method
+
+    func configurePokemonSprite(imageData: Data) {
+        guard let image = UIImage(data: imageData) else { return }
+        pokemonSprite.image = image
+    }
+
+    func configurePokemonData(type1: String, type2: String?) {
+        let pokemonType1 = PokemonType(rawValue: type1)
+        pokemonType1Icon.image = pokemonType1?.configureTypeIcon()
+        pokemonType1Text.text = pokemonType1?.configureTypeText()
+        pokemonType1Background.backgroundColor = pokemonType1?.configureTypeColor()
+
+        if type2 != nil {
+            let pokemonType2 = PokemonType(rawValue: type2!)
+            pokemonType2Icon.image = pokemonType2?.configureTypeIcon()
+            pokemonType2Text.text = pokemonType2?.configureTypeText()
+            pokemonType2Background.backgroundColor = pokemonType2?.configureTypeColor()
+        } else {
+            pokemonType2Icon.image = UIImage()
+            pokemonType2Text.text = ""
+            pokemonType2Background.backgroundColor = .clear
+        }
+    }
+
+    func configurePokemonSpeciesData(number: Int, name: String, genera: String, dexDetail: String) {
+        titleText.text = "#\(number) \(name)"
+        pokemonNumber.text = "No. \(number)"
+        pokemonName.text = name
+        pokemonGenus.text = genera
+        pokemonDexDetail.text = dexDetail
+        pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
 }

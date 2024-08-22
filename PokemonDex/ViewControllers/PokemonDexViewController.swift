@@ -88,108 +88,7 @@ class PokemonDexViewController: UIViewController {
         return PokemonInfo(id: pokemonDexNumber, pokemon: pokemonModel, species: pokemonSpeciesModel, sprite: pokemonImageData)
     }
 
-    private func configureTodaysPokemonData(pokemonNumberLabel: UILabel, pokemonNameLabel: UILabel, pokemonGenusLabel: UILabel, pokemonDexDetail: UITextView, pokemonSprite: UIImageView, type1Icon: UIImageView, type1Text: UILabel, type1Background: UIView, type2Icon: UIImageView, type2Text: UILabel, type2Background: UIView) {
-        pokemonNumberLabel.text = "No.\(todaysPokemon.id)"
-        guard let imageData = todaysPokemon.sprite, let image = UIImage(data: imageData) else { return }
-        pokemonSprite.image = image
-
-        guard let pokemonData = todaysPokemon.pokemon else { return }
-        configureTypeComponent(type: pokemonData.types.filter { $0.slot == 1 }[0].type.name, icon: type1Icon, typeText: type1Text, backgroundView: type1Background)
-
-        if !pokemonData.types.filter({ $0.slot == 2 }).isEmpty {
-            configureTypeComponent(type: pokemonData.types.filter { $0.slot == 2 }[0].type.name, icon: type2Icon, typeText: type2Text, backgroundView: type2Background)
-        } else {
-            type2Icon.image = UIImage()
-            type2Text.text = ""
-            type2Background.backgroundColor = .clear
-        }
-
-        guard let pokemonSpecies = todaysPokemon.species else { return }
-
-        pokemonNameLabel.text = pokemonSpecies.names.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.names[0].name : pokemonSpecies.names.filter { $0.language.name == "ko" }[0].name
-        pokemonGenusLabel.text = pokemonSpecies.genera.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.genera[0].genus : pokemonSpecies.genera.filter { $0.language.name == "ko" }[0].genus
-        pokemonDexDetail.text = pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? pokemonSpecies.flavorTextEntries[0].flavorText : pokemonSpecies.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText
-        pokemonDexDetail.setContentOffset(.zero, animated: false)
-    }
-
-    private func configureTypeComponent(type typeName: String, icon: UIImageView, typeText: UILabel, backgroundView: UIView) {
-        switch typeName {
-        case "normal":
-            icon.image = #imageLiteral(resourceName: "Normal")
-            typeText.text = "노말"
-            backgroundView.backgroundColor = TypeColor.normal
-        case "fire":
-            icon.image = #imageLiteral(resourceName: "Fire")
-            typeText.text = "불꽃"
-            backgroundView.backgroundColor = TypeColor.fire
-        case "water":
-            icon.image = #imageLiteral(resourceName: "Water")
-            typeText.text = "물"
-            backgroundView.backgroundColor = TypeColor.water
-        case "grass":
-            icon.image = #imageLiteral(resourceName: "Grass")
-            typeText.text = "풀"
-            backgroundView.backgroundColor = TypeColor.grass
-        case "electric":
-            icon.image = #imageLiteral(resourceName: "Electric")
-            typeText.text = "전기"
-            backgroundView.backgroundColor = TypeColor.electric
-        case "ice":
-            icon.image = #imageLiteral(resourceName: "Ice")
-            typeText.text = "얼음"
-            backgroundView.backgroundColor = TypeColor.ice
-        case "fighting":
-            icon.image = #imageLiteral(resourceName: "Fighting")
-            typeText.text = "격투"
-            backgroundView.backgroundColor = TypeColor.fighting
-        case "poison":
-            icon.image = #imageLiteral(resourceName: "Poison")
-            typeText.text = "독"
-            backgroundView.backgroundColor = TypeColor.poison
-        case "ground":
-            icon.image = #imageLiteral(resourceName: "Ground")
-            typeText.text = "땅"
-            backgroundView.backgroundColor = TypeColor.ground
-        case "flying":
-            icon.image = #imageLiteral(resourceName: "Flying")
-            typeText.text = "비행"
-            backgroundView.backgroundColor = TypeColor.flying
-        case "psychic":
-            icon.image = #imageLiteral(resourceName: "Psychic")
-            typeText.text = "에스퍼"
-            backgroundView.backgroundColor = TypeColor.psychic
-        case "bug":
-            icon.image = #imageLiteral(resourceName: "Bug")
-            typeText.text = "벌레"
-            backgroundView.backgroundColor = TypeColor.bug
-        case "rock":
-            icon.image = #imageLiteral(resourceName: "Rock")
-            typeText.text = "바위"
-            backgroundView.backgroundColor = TypeColor.rock
-        case "ghost":
-            icon.image = #imageLiteral(resourceName: "Ghost")
-            typeText.text = "고스트"
-            backgroundView.backgroundColor = TypeColor.ghost
-        case "dragon":
-            icon.image = #imageLiteral(resourceName: "Dragon")
-            typeText.text = "드래곤"
-            backgroundView.backgroundColor = TypeColor.dragon
-        case "dark":
-            icon.image = #imageLiteral(resourceName: "Dark")
-            typeText.text = "악"
-            backgroundView.backgroundColor = TypeColor.dark
-        case "steel":
-            icon.image = #imageLiteral(resourceName: "Steel")
-            typeText.text = "강철"
-            backgroundView.backgroundColor = TypeColor.steel
-        case "fairy":
-            icon.image = #imageLiteral(resourceName: "Fairy")
-            typeText.text = "페어리"
-            backgroundView.backgroundColor = TypeColor.fairy
-        default:
-            break
-        }
-    }
+    // MARK: - UICollectionViewCompositionalLayout Configure Method
 
     private func configureSection(for section: Int) -> NSCollectionLayoutSection {
         switch section {
@@ -234,16 +133,27 @@ class PokemonDexViewController: UIViewController {
 
     private func configureDataSource() {
         let todaysPokemonCellRegistration = UICollectionView.CellRegistration<TodaysPokemonCell, Int> { (cell, indexPath, item) in
-            var buttonConfig = UIButton.Configuration.borderless()
-            buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-            cell.titleImageButton.configuration = buttonConfig
+            guard let sprite = self.todaysPokemon.sprite else { return }
+            cell.configurePokemonSprite(imageData: sprite)
 
-            self.configureTodaysPokemonData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+            guard let pokemon = self.todaysPokemon.pokemon else { return }
+            cell.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
+
+            guard let species = self.todaysPokemon.species else { return }
+            cell.configurePokemonSpeciesData(number: self.todaysPokemon.id, name: species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
 
             let action = UIAction { _ in
                 Task {
                     self.todaysPokemon = try await self.requestPokemonDexData(pokemonDexNumber: Int.random(in: 1...1025))
-                    self.configureTodaysPokemonData(pokemonNumberLabel: cell.pokemonNumber, pokemonNameLabel: cell.pokemonName, pokemonGenusLabel: cell.pokemonGenus, pokemonDexDetail: cell.pokemonDexDetail, pokemonSprite: cell.pokemonSprite, type1Icon: cell.pokemonType1Icon, type1Text: cell.pokemonType1Text, type1Background: cell.pokemonType1Background, type2Icon: cell.pokemonType2Icon, type2Text: cell.pokemonType2Text, type2Background: cell.pokemonType2Background)
+
+                    guard let sprite = self.todaysPokemon.sprite else { return }
+                    cell.configurePokemonSprite(imageData: sprite)
+
+                    guard let pokemon = self.todaysPokemon.pokemon else { return }
+                    cell.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
+
+                    guard let species = self.todaysPokemon.species else { return }
+                    cell.configurePokemonSpeciesData(number: self.todaysPokemon.id, name: species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
                 }
 
                 UIView.animate(withDuration: 1) {
