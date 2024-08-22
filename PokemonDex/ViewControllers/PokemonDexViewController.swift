@@ -118,6 +118,8 @@ class PokemonDexViewController: UIViewController {
         pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
 
+    // MARK: - UICollectionViewCompositionalLayout Configure Method
+
     private func configureSection(for section: Int) -> NSCollectionLayoutSection {
         switch section {
             case 0:
