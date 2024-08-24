@@ -22,7 +22,7 @@ class PokemonDexDetailView: UIView {
         $0.spacing = 8
         $0.axis = .horizontal
         $0.backgroundColor = .white
-        $0.alignment = .leading
+        $0.alignment = .center
         $0.isLayoutMarginsRelativeArrangement = true
         $0.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
