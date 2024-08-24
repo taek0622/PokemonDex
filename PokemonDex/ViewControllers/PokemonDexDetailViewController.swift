@@ -62,8 +62,16 @@ class PokemonDexDetailViewController: UIViewController {
     private func requestPokemonDexData(pokemonDexNumber: Int) async throws -> PokemonInfo {
         guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { fatalError() }
         let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+        let (pokemonOriginalImageData, _) = try await URLSession(configuration: .default).data(for: pokemonImageRequest)
+        guard let originalImage = UIImage(data: pokemonOriginalImageData) else { fatalError() }
 
-        let (imageData, _) = try await URLSession(configuration: .default).data(for: pokemonImageRequest)
+        guard let imageSource = CGImageSourceCreateWithData(pokemonOriginalImageData as CFData, nil) else { fatalError() }
+        let options: [NSString: Any] = [
+            kCGImageSourceThumbnailMaxPixelSize: min(originalImage.size.width, UIScreen.main.bounds.width/2),
+            kCGImageSourceCreateThumbnailFromImageAlways: true
+        ]
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else { fatalError() }
+        let pokemonImageData = UIImage(cgImage: downsampledImage).pngData()
 
         guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonDexNumber)") else { fatalError() }
         let pokemonRequest = URLRequest(url: pokemonUrl)
@@ -77,7 +85,7 @@ class PokemonDexDetailViewController: UIViewController {
         let (pokemonSpecies, _) = try await URLSession(configuration: .default).data(for: pokemonSpeciesRequest)
         let pokemonSpeciesData = try JSONDecoder().decode(PokemonSpeciesModel.self, from: pokemonSpecies)
 
-        return PokemonInfo(id: pokemonDexNumber, pokemon: pokemonData, species: pokemonSpeciesData, sprite: imageData)
+        return PokemonInfo(id: pokemonDexNumber, pokemon: pokemonData, species: pokemonSpeciesData, sprite: pokemonImageData)
     }
 
 }

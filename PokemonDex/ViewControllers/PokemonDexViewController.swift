@@ -66,7 +66,16 @@ class PokemonDexViewController: UIViewController {
         guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { fatalError() }
         let pokemonImageRequest = URLRequest(url: pokemonImageURL)
 
-        let (pokemonImageData, _) = try await URLSession(configuration: .default).data(for: pokemonImageRequest)
+        let (pokemonOriginalImageData, _) = try await URLSession(configuration: .default).data(for: pokemonImageRequest)
+        guard let originalImage = UIImage(data: pokemonOriginalImageData) else { fatalError() }
+
+        guard let imageSource = CGImageSourceCreateWithData(pokemonOriginalImageData as CFData, nil) else { fatalError() }
+        let options: [NSString: Any] = [
+            kCGImageSourceThumbnailMaxPixelSize: min(originalImage.size.width, UIScreen.main.bounds.width/2),
+            kCGImageSourceCreateThumbnailFromImageAlways: true
+        ]
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else { fatalError() }
+        let pokemonImageData = UIImage(cgImage: downsampledImage).pngData()
 
         guard let pokemonUrl = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemonDexNumber)") else { fatalError() }
         let pokemonRequest = URLRequest(url: pokemonUrl)
@@ -174,23 +183,28 @@ class PokemonDexViewController: UIViewController {
                 guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
                 let pokemonImageRequest = URLRequest(url: pokemonImageURL)
 
-                URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+                URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { originalImageData, imageResponse, imageError in
                     if let imageError {
                         print("Image Error: \(imageError.localizedDescription)")
                         return
                     }
 
-                    guard let imageData else {
+                    guard let originalImageData else {
                         print("Image Error: Data Error")
                         return
                     }
 
-                    self.pokemons[pokemonDexNumber - 1].sprite = imageData
 
-                    guard let image = UIImage(data: imageData) else {
-                        print("Image Data Error")
-                        return
-                    }
+                    guard let originalImage = UIImage(data: originalImageData) else { return }
+
+                    guard let imageSource = CGImageSourceCreateWithData(originalImageData as CFData, nil) else { return }
+                    let options: [NSString: Any] = [
+                        kCGImageSourceThumbnailMaxPixelSize: min(originalImage.size.width, UIScreen.main.bounds.width/2),
+                        kCGImageSourceCreateThumbnailFromImageAlways: true
+                    ]
+                    guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else { return }
+                    let image = UIImage(cgImage: downsampledImage)
+                    self.pokemons[pokemonDexNumber - 1].sprite = image.pngData()
 
                     DispatchQueue.main.async {
                         cell.configureThumbnailImage(thumbnailImage: image)
