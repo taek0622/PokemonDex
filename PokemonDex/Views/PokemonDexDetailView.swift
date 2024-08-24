@@ -332,6 +332,8 @@ class PokemonDexDetailView: UIView {
         pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
 
+    // MARK: - Button Configuration Method
+
     func configurePokemonDexButtonShape(version: PokemonGameVersion) {
         let color = version.configureVersionColor()
         pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = color
