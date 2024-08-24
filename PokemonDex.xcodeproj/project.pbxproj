@@ -21,6 +21,7 @@
 		2610A3502C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */; };
 		2610A3522C7667E400BD3C5F /* PokemonDexDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3512C7667E400BD3C5F /* PokemonDexDetailView.swift */; };
 		2610A3592C77CFA300BD3C5F /* PokemonGameVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A3582C77CFA300BD3C5F /* PokemonGameVersion.swift */; };
+		2610A35F2C7986BE00BD3C5F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2610A35E2C7986BE00BD3C5F /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexDetailViewController.swift; sourceTree = "<group>"; };
 		2610A3512C7667E400BD3C5F /* PokemonDexDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDexDetailView.swift; sourceTree = "<group>"; };
 		2610A3582C77CFA300BD3C5F /* PokemonGameVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonGameVersion.swift; sourceTree = "<group>"; };
+		2610A35E2C7986BE00BD3C5F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				2610A3562C77719F00BD3C5F /* Views */,
 				2610A3572C7771B800BD3C5F /* ViewControllers */,
 				2610A3112C6546BF00BD3C5F /* AppDelegate.swift */,
+				2610A35E2C7986BE00BD3C5F /* UIView+.swift */,
 				2610A3132C6546BF00BD3C5F /* SceneDelegate.swift */,
 				2610A3272C659B1400BD3C5F /* PokemonType.swift */,
 				2610A3582C77CFA300BD3C5F /* PokemonGameVersion.swift */,
@@ -195,6 +198,7 @@
 				2610A3142C6546BF00BD3C5F /* SceneDelegate.swift in Sources */,
 				2610A3462C721BA600BD3C5F /* PokemonDexGridCell.swift in Sources */,
 				2610A3522C7667E400BD3C5F /* PokemonDexDetailView.swift in Sources */,
+				2610A35F2C7986BE00BD3C5F /* UIView+.swift in Sources */,
 				2610A34A2C73384700BD3C5F /* PokemonDexHeader.swift in Sources */,
 				2610A3302C67A86B00BD3C5F /* UtilityModel.swift in Sources */,
 			);
