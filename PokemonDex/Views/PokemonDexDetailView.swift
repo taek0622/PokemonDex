@@ -278,15 +278,15 @@ class PokemonDexDetailView: UIView {
             pokemonDexDetail.widthAnchor.constraint(equalTo: dexBodyDetailStack.widthAnchor),
             pokemonSprite.heightAnchor.constraint(equalTo: pokemonSprite.widthAnchor),
             pokemonDexFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor),
-            pokemonDexTypeSelectionButton.topAnchor.constraint(equalTo: pokemonDexFooter.topAnchor, constant: 4),
             pokemonDexTypeSelectionButton.leftAnchor.constraint(greaterThanOrEqualTo: pokemonDexFooter.leftAnchor, constant: 16),
-            pokemonDexTypeSelectionButton.bottomAnchor.constraint(equalTo: pokemonDexFooter.bottomAnchor, constant: -4),
-            pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16)
+            pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16),
+            pokemonDexTypeSelectionButton.centerYAnchor.constraint(equalTo: pokemonDexFooter.centerYAnchor),
+            pokemonDexTypeSelectionButton.heightAnchor.constraint(equalToConstant: 25)
         ])
 
         pokemonDexTypeSelectionButton.layer.borderColor = UIColor.black.cgColor
         pokemonDexTypeSelectionButton.layer.borderWidth = 2
-        pokemonDexTypeSelectionButton.layer.cornerRadius = 16
+        pokemonDexTypeSelectionButton.layer.cornerRadius = 12
 
         var dexTypeButtonConfig = UIButton.Configuration.bordered()
         dexTypeButtonConfig.title = "버전"
