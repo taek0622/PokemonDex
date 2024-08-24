@@ -36,6 +36,14 @@ class PokemonDexDetailViewController: UIViewController {
             navigationItem.title = name
             pokemonDexDetailView.configurePokemonSpeciesData(number: selectedPokemon.id, name: name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus)
 
+            let baseFlavorText = species.flavorTextEntries.filter { $0.language.name == "ko" }
+            pokemonDexDetailView.configurePokemonDexDetail(dexDetail: baseFlavorText.isEmpty ? "해당 언어로된 도감 설명이 없습니다." : baseFlavorText[0].flavorText)
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = baseFlavorText.isEmpty ? "오류" : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionName()
+            let gameVersionColor = baseFlavorText.isEmpty ? .black : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionColor()
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = gameVersionColor
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = gameVersionColor?.cgColor
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.showsMenuAsPrimaryAction = true
+
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)
 
