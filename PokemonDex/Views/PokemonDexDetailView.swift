@@ -288,13 +288,13 @@ class PokemonDexDetailView: UIView {
             pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16)
         ])
 
-        pokemonDexTypeSelectionButton.layer.borderColor = UIColor.red.cgColor
+        pokemonDexTypeSelectionButton.layer.borderColor = UIColor.black.cgColor
         pokemonDexTypeSelectionButton.layer.borderWidth = 2
         pokemonDexTypeSelectionButton.layer.cornerRadius = 16
 
         var dexTypeButtonConfig = UIButton.Configuration.bordered()
-        dexTypeButtonConfig.title = "스칼렛"
-        dexTypeButtonConfig.baseForegroundColor = .red
+        dexTypeButtonConfig.title = "버전"
+        dexTypeButtonConfig.baseForegroundColor = .black
         dexTypeButtonConfig.baseBackgroundColor = .white
         pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
         pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
