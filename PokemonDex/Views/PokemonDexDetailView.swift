@@ -182,7 +182,7 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIView())
 
-    private let pokemonDexTypeSelectionButton: UIButton = {
+    let pokemonDexTypeSelectionButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
@@ -288,13 +288,13 @@ class PokemonDexDetailView: UIView {
             pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16)
         ])
 
-        pokemonDexTypeSelectionButton.layer.borderColor = UIColor.red.cgColor
+        pokemonDexTypeSelectionButton.layer.borderColor = UIColor.black.cgColor
         pokemonDexTypeSelectionButton.layer.borderWidth = 2
         pokemonDexTypeSelectionButton.layer.cornerRadius = 16
 
         var dexTypeButtonConfig = UIButton.Configuration.bordered()
-        dexTypeButtonConfig.title = "스칼렛"
-        dexTypeButtonConfig.baseForegroundColor = .red
+        dexTypeButtonConfig.title = "버전"
+        dexTypeButtonConfig.baseForegroundColor = .black
         dexTypeButtonConfig.baseBackgroundColor = .white
         pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
         pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
@@ -325,11 +325,14 @@ class PokemonDexDetailView: UIView {
         }
     }
 
-    func configurePokemonSpeciesData(number: Int, name: String, genera: String, dexDetail: String) {
+    func configurePokemonSpeciesData(number: Int, name: String, genera: String) {
         titleText.text = "#\(number) \(name)"
         pokemonNumber.text = "No. \(number)"
         pokemonName.text = name
         pokemonGenus.text = genera
+    }
+
+    func configurePokemonDexDetail(dexDetail: String) {
         pokemonDexDetail.text = dexDetail
         pokemonDexDetail.setContentOffset(.zero, animated: false)
     }

@@ -34,13 +34,31 @@ class PokemonDexDetailViewController: UIViewController {
             guard let species = selectedPokemon.species else { return }
             let name = species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name
             navigationItem.title = name
-            pokemonDexDetailView.configurePokemonSpeciesData(number: selectedPokemon.id, name: name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
+            pokemonDexDetailView.configurePokemonSpeciesData(number: selectedPokemon.id, name: name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus)
+
+            let baseFlavorText = species.flavorTextEntries.filter { $0.language.name == "ko" }
+            pokemonDexDetailView.configurePokemonDexDetail(dexDetail: baseFlavorText.isEmpty ? "해당 언어로된 도감 설명이 없습니다." : baseFlavorText[0].flavorText)
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = baseFlavorText.isEmpty ? "오류" : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionName()
+            let gameVersionColor = baseFlavorText.isEmpty ? .black : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionColor()
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = gameVersionColor
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = gameVersionColor?.cgColor
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.showsMenuAsPrimaryAction = true
 
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)
 
             guard let pokemon = selectedPokemon.pokemon else { return }
             pokemonDexDetailView.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
+
+            pokemonDexDetailView.pokemonDexTypeSelectionButton.menu = UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
+                UIAction(title: PokemonGameVersion(rawValue: flavorTextType.version.name)!.configureVersionName(), handler: { _ in
+                    let color = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionColor()
+                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = color
+                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = color?.cgColor
+                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionName()
+                    self.pokemonDexDetailView.configurePokemonDexDetail(dexDetail: flavorTextType.flavorText)
+                })
+            })
         }
     }
 
