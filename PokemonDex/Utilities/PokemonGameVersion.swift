@@ -8,6 +8,7 @@
 import UIKit
 
 enum PokemonGameVersion: String, CaseIterable {
+    case none = "none"
     case red = "red"
     case blue = "blue"
     case yellow = "yellow"
@@ -54,6 +55,8 @@ enum PokemonGameVersion: String, CaseIterable {
 
     func configureVersionName() -> String {
         switch self {
+            case .none:
+                return "정보 없음"
             case .red:
                 return "레드"
             case .blue:
@@ -145,6 +148,8 @@ enum PokemonGameVersion: String, CaseIterable {
 
     func configureVersionColor() -> UIColor {
         switch self {
+            case .none:
+                return .black
             case .red:
                 return #colorLiteral(red: 0.9872214198, green: 0.02776993625, blue: 0.1776115596, alpha: 1)
             case .blue:

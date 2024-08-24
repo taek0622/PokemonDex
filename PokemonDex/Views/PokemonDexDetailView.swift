@@ -22,7 +22,7 @@ class PokemonDexDetailView: UIView {
         $0.spacing = 8
         $0.axis = .horizontal
         $0.backgroundColor = .white
-        $0.alignment = .leading
+        $0.alignment = .center
         $0.isLayoutMarginsRelativeArrangement = true
         $0.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,12 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIStackView())
 
-    private let titleImageButton = UIButton()
+    private let titleImageView: UIImageView = {
+        $0.image = #imageLiteral(resourceName: "MonsterBall")
+        $0.contentMode = .scaleToFill
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
 
     private let titleText: UILabel = {
         $0.text = "#0 이름"
@@ -182,7 +187,8 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIView())
 
-    let pokemonDexTypeSelectionButton: UIButton = {
+    private let pokemonDexTypeSelectionButton: UIButton = {
+        $0.showsMenuAsPrimaryAction = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
@@ -201,13 +207,7 @@ class PokemonDexDetailView: UIView {
     // MARK: - Life Cycle
 
     override func layoutSubviews() {
-        let dexBodyGradient = CAGradientLayer()
-        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
-        dexBodyGradient.locations = [0.0, 1.0]
-        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        dexBodyGradient.frame = bounds
-        layer.insertSublayer(dexBodyGradient, at: 0)
+        configureGradientBackground(colors: [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor], locations: [0.0, 1.0], startPoint: CGPoint(x: 0.5, y: 0.0), endPoint: CGPoint(x: 0.5, y: 1.0), frame: bounds)
     }
 
     // MARK: - layout Method
@@ -224,7 +224,7 @@ class PokemonDexDetailView: UIView {
         pokemonDexStack.addArrangedSubview(pokemonDexFooter)
         dexBodyBackground.addSubview(dexBodyStack)
 
-        titleStack.addArrangedSubview(titleImageButton)
+        titleStack.addArrangedSubview(titleImageView)
         titleStack.addArrangedSubview(titleText)
 
         dexBodyStack.addArrangedSubview(dexBodyDetailStack)
@@ -252,10 +252,6 @@ class PokemonDexDetailView: UIView {
 
         pokemonDexFooter.addSubview(pokemonDexTypeSelectionButton)
 
-        var buttonConfig = UIButton.Configuration.borderless()
-        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-        titleImageButton.configuration = buttonConfig
-
         NSLayoutConstraint.activate([
             pokemonDexStack.topAnchor.constraint(equalTo: topAnchor),
             pokemonDexStack.leftAnchor.constraint(equalTo: leftAnchor),
@@ -265,8 +261,8 @@ class PokemonDexDetailView: UIView {
             dexBodyStack.leftAnchor.constraint(equalTo: dexBodyBackground.leftAnchor),
             dexBodyStack.bottomAnchor.constraint(equalTo: dexBodyBackground.bottomAnchor),
             dexBodyStack.rightAnchor.constraint(equalTo: dexBodyBackground.rightAnchor),
-            titleImageButton.widthAnchor.constraint(equalToConstant: 21),
-            titleImageButton.heightAnchor.constraint(equalToConstant: 21),
+            titleImageView.widthAnchor.constraint(equalToConstant: 21),
+            titleImageView.heightAnchor.constraint(equalToConstant: 21),
             pokemonType1Stack.topAnchor.constraint(equalTo: pokemonType1Background.topAnchor),
             pokemonType1Stack.leftAnchor.constraint(equalTo: pokemonType1Background.leftAnchor),
             pokemonType1Stack.bottomAnchor.constraint(equalTo: pokemonType1Background.bottomAnchor),
@@ -282,25 +278,24 @@ class PokemonDexDetailView: UIView {
             pokemonDexDetail.widthAnchor.constraint(equalTo: dexBodyDetailStack.widthAnchor),
             pokemonSprite.heightAnchor.constraint(equalTo: pokemonSprite.widthAnchor),
             pokemonDexFooter.heightAnchor.constraint(equalTo: titleStack.heightAnchor),
-            pokemonDexTypeSelectionButton.topAnchor.constraint(equalTo: pokemonDexFooter.topAnchor, constant: 4),
             pokemonDexTypeSelectionButton.leftAnchor.constraint(greaterThanOrEqualTo: pokemonDexFooter.leftAnchor, constant: 16),
-            pokemonDexTypeSelectionButton.bottomAnchor.constraint(equalTo: pokemonDexFooter.bottomAnchor, constant: -4),
-            pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16)
+            pokemonDexTypeSelectionButton.rightAnchor.constraint(equalTo: pokemonDexFooter.rightAnchor, constant: -16),
+            pokemonDexTypeSelectionButton.centerYAnchor.constraint(equalTo: pokemonDexFooter.centerYAnchor),
+            pokemonDexTypeSelectionButton.heightAnchor.constraint(equalToConstant: 25)
         ])
 
         pokemonDexTypeSelectionButton.layer.borderColor = UIColor.black.cgColor
         pokemonDexTypeSelectionButton.layer.borderWidth = 2
-        pokemonDexTypeSelectionButton.layer.cornerRadius = 16
+        pokemonDexTypeSelectionButton.layer.cornerRadius = 12
 
         var dexTypeButtonConfig = UIButton.Configuration.bordered()
         dexTypeButtonConfig.title = "버전"
         dexTypeButtonConfig.baseForegroundColor = .black
         dexTypeButtonConfig.baseBackgroundColor = .white
         pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
-        pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
     }
 
-    // MAKR: - Data Configure Method
+    // MARK: - Data Configure Method
 
     func configurePokemonSprite(imageData: Data) {
         guard let image = UIImage(data: imageData) else { return }
@@ -335,5 +330,18 @@ class PokemonDexDetailView: UIView {
     func configurePokemonDexDetail(dexDetail: String) {
         pokemonDexDetail.text = dexDetail
         pokemonDexDetail.setContentOffset(.zero, animated: false)
+    }
+
+    // MARK: - Button Configuration Method
+
+    func configurePokemonDexButtonShape(version: PokemonGameVersion) {
+        let color = version.configureVersionColor()
+        pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = color
+        pokemonDexTypeSelectionButton.layer.borderColor = color.cgColor
+        pokemonDexTypeSelectionButton.configuration?.title = version.configureVersionName()
+    }
+
+    func configurePokemonDexButtonMenu(menu: UIMenu) {
+        pokemonDexTypeSelectionButton.menu = menu
     }
 }

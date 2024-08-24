@@ -38,11 +38,7 @@ class PokemonDexDetailViewController: UIViewController {
 
             let baseFlavorText = species.flavorTextEntries.filter { $0.language.name == "ko" }
             pokemonDexDetailView.configurePokemonDexDetail(dexDetail: baseFlavorText.isEmpty ? "해당 언어로된 도감 설명이 없습니다." : baseFlavorText[0].flavorText)
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = baseFlavorText.isEmpty ? "오류" : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionName()
-            let gameVersionColor = baseFlavorText.isEmpty ? .black : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionColor()
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = gameVersionColor
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = gameVersionColor?.cgColor
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.showsMenuAsPrimaryAction = true
+            pokemonDexDetailView.configurePokemonDexButtonShape(version: baseFlavorText.isEmpty ? .none : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)!)
 
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)
@@ -50,26 +46,17 @@ class PokemonDexDetailViewController: UIViewController {
             guard let pokemon = selectedPokemon.pokemon else { return }
             pokemonDexDetailView.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
 
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.menu = UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
+            pokemonDexDetailView.configurePokemonDexButtonMenu(menu: UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
                 UIAction(title: PokemonGameVersion(rawValue: flavorTextType.version.name)!.configureVersionName(), handler: { _ in
-                    let color = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionColor()
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = color
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = color?.cgColor
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionName()
+                    self.pokemonDexDetailView.configurePokemonDexButtonShape(version: PokemonGameVersion(rawValue: flavorTextType.version.name)!)
                     self.pokemonDexDetailView.configurePokemonDexDetail(dexDetail: flavorTextType.flavorText)
                 })
-            })
+            }))
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let viewGradient = CAGradientLayer()
-        viewGradient.colors = [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor]
-        viewGradient.locations = [0.0, 1.0]
-        viewGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        viewGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        viewGradient.frame = view.bounds
-        view.layer.insertSublayer(viewGradient, at: 0)
+        view.configureGradientBackground(colors: [#colorLiteral(red: 0.3529411765, green: 0.6117647059, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.7921568627, blue: 0.9607843137, alpha: 1).cgColor], locations: [0.0, 1.0], startPoint: CGPoint(x: 0.5, y: 0.0), endPoint: CGPoint(x: 0.5, y: 1.0), frame: view.bounds)
     }
 
     private func requestPokemonDexData(pokemonDexNumber: Int) async throws -> PokemonInfo {

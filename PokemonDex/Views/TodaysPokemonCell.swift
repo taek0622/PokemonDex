@@ -26,7 +26,7 @@ class TodaysPokemonCell: UICollectionViewCell {
         $0.spacing = 8
         $0.axis = .horizontal
         $0.backgroundColor = .white
-        $0.alignment = .leading
+        $0.alignment = .center
         $0.isLayoutMarginsRelativeArrangement = true
         $0.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -200,13 +200,7 @@ class TodaysPokemonCell: UICollectionViewCell {
     // MARK: - Life Cycle
 
     override func layoutSubviews() {
-        let dexBodyGradient = CAGradientLayer()
-        dexBodyGradient.colors = [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor]
-        dexBodyGradient.locations = [0.0, 1.0]
-        dexBodyGradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        dexBodyGradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        dexBodyGradient.frame = bounds
-        layer.insertSublayer(dexBodyGradient, at: 0)
+        configureGradientBackground(colors: [#colorLiteral(red: 0.3759945631, green: 0.3858169913, blue: 0.7819373012, alpha: 1).cgColor, #colorLiteral(red: 0.3937356174, green: 0.7595846653, blue: 0.8642223477, alpha: 1).cgColor], locations: [0.0, 1.0], startPoint: CGPoint(x: 0.5, y: 0.0), endPoint: CGPoint(x: 0.5, y: 1.0), frame: bounds)
     }
 
     // MARK: - Method
