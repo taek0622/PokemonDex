@@ -182,7 +182,7 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIView())
 
-    let pokemonDexTypeSelectionButton: UIButton = {
+    private let pokemonDexTypeSelectionButton: UIButton = {
         $0.showsMenuAsPrimaryAction = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
