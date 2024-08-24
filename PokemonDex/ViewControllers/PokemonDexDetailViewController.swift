@@ -38,10 +38,7 @@ class PokemonDexDetailViewController: UIViewController {
 
             let baseFlavorText = species.flavorTextEntries.filter { $0.language.name == "ko" }
             pokemonDexDetailView.configurePokemonDexDetail(dexDetail: baseFlavorText.isEmpty ? "해당 언어로된 도감 설명이 없습니다." : baseFlavorText[0].flavorText)
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = baseFlavorText.isEmpty ? "오류" : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionName()
-            let gameVersionColor = baseFlavorText.isEmpty ? .black : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionColor()
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = gameVersionColor
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = gameVersionColor?.cgColor
+            pokemonDexDetailView.configurePokemonDexButtonShape(version: baseFlavorText.isEmpty ? .none : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)!)
 
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)
@@ -51,10 +48,7 @@ class PokemonDexDetailViewController: UIViewController {
 
             pokemonDexDetailView.pokemonDexTypeSelectionButton.menu = UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
                 UIAction(title: PokemonGameVersion(rawValue: flavorTextType.version.name)!.configureVersionName(), handler: { _ in
-                    let color = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionColor()
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = color
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = color?.cgColor
-                    self.pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.title = PokemonGameVersion(rawValue: flavorTextType.version.name)?.configureVersionName()
+                    self.pokemonDexDetailView.configurePokemonDexButtonShape(version: PokemonGameVersion(rawValue: flavorTextType.version.name)!)
                     self.pokemonDexDetailView.configurePokemonDexDetail(dexDetail: flavorTextType.flavorText)
                 })
             })
