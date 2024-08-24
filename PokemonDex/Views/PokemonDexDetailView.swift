@@ -44,7 +44,12 @@ class PokemonDexDetailView: UIView {
         return $0
     }(UIStackView())
 
-    private let titleImageButton = UIButton()
+    private let titleImageView: UIImageView = {
+        $0.image = #imageLiteral(resourceName: "MonsterBall")
+        $0.contentMode = .scaleToFill
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
 
     private let titleText: UILabel = {
         $0.text = "#0 이름"
@@ -219,7 +224,7 @@ class PokemonDexDetailView: UIView {
         pokemonDexStack.addArrangedSubview(pokemonDexFooter)
         dexBodyBackground.addSubview(dexBodyStack)
 
-        titleStack.addArrangedSubview(titleImageButton)
+        titleStack.addArrangedSubview(titleImageView)
         titleStack.addArrangedSubview(titleText)
 
         dexBodyStack.addArrangedSubview(dexBodyDetailStack)
@@ -247,10 +252,6 @@ class PokemonDexDetailView: UIView {
 
         pokemonDexFooter.addSubview(pokemonDexTypeSelectionButton)
 
-        var buttonConfig = UIButton.Configuration.borderless()
-        buttonConfig.background.image = #imageLiteral(resourceName: "MonsterBall")
-        titleImageButton.configuration = buttonConfig
-
         NSLayoutConstraint.activate([
             pokemonDexStack.topAnchor.constraint(equalTo: topAnchor),
             pokemonDexStack.leftAnchor.constraint(equalTo: leftAnchor),
@@ -260,8 +261,8 @@ class PokemonDexDetailView: UIView {
             dexBodyStack.leftAnchor.constraint(equalTo: dexBodyBackground.leftAnchor),
             dexBodyStack.bottomAnchor.constraint(equalTo: dexBodyBackground.bottomAnchor),
             dexBodyStack.rightAnchor.constraint(equalTo: dexBodyBackground.rightAnchor),
-            titleImageButton.widthAnchor.constraint(equalToConstant: 21),
-            titleImageButton.heightAnchor.constraint(equalToConstant: 21),
+            titleImageView.widthAnchor.constraint(equalToConstant: 21),
+            titleImageView.heightAnchor.constraint(equalToConstant: 21),
             pokemonType1Stack.topAnchor.constraint(equalTo: pokemonType1Background.topAnchor),
             pokemonType1Stack.leftAnchor.constraint(equalTo: pokemonType1Background.leftAnchor),
             pokemonType1Stack.bottomAnchor.constraint(equalTo: pokemonType1Background.bottomAnchor),
