@@ -34,7 +34,7 @@ class PokemonDexDetailViewController: UIViewController {
             guard let species = selectedPokemon.species else { return }
             let name = species.names.filter { $0.language.name == "ko" }.isEmpty ? species.name : species.names.filter { $0.language.name == "ko" }[0].name
             navigationItem.title = name
-            pokemonDexDetailView.configurePokemonSpeciesData(number: selectedPokemon.id, name: name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus, dexDetail: species.flavorTextEntries.filter { $0.language.name == "ko" }.isEmpty ? species.flavorTextEntries[0].flavorText : species.flavorTextEntries.filter { $0.language.name == "ko" }[0].flavorText)
+            pokemonDexDetailView.configurePokemonSpeciesData(number: selectedPokemon.id, name: name, genera: species.genera.filter { $0.language.name == "ko" }.isEmpty ? species.genera[0].genus : species.genera.filter { $0.language.name == "ko" }[0].genus)
 
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)

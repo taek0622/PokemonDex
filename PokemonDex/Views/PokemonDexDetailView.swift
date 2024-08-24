@@ -325,11 +325,14 @@ class PokemonDexDetailView: UIView {
         }
     }
 
-    func configurePokemonSpeciesData(number: Int, name: String, genera: String, dexDetail: String) {
+    func configurePokemonSpeciesData(number: Int, name: String, genera: String) {
         titleText.text = "#\(number) \(name)"
         pokemonNumber.text = "No. \(number)"
         pokemonName.text = name
         pokemonGenus.text = genera
+    }
+
+    func configurePokemonDexDetail(dexDetail: String) {
         pokemonDexDetail.text = dexDetail
         pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
