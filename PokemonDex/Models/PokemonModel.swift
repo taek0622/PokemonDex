@@ -29,8 +29,6 @@ struct PokemonInfo {
     var abilities: [PokemonAbility]
     /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
-    /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 울음소리 세트
-    var cries: PokemonCries
     /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
     /// 해당 포켓몬이 가진 타입 목록
@@ -49,8 +47,6 @@ struct PokemonModel: Codable {
     var abilities: [PokemonAbility]
     /// 세대별 포켓몬과 관련된 게임 목록
     var gameIndices: [VersionGameIndex]
-    /// 게임에서 해당 포켓몬을 묘사하는 데 사용되는 울음소리 세트
-    var cries: PokemonCries
     /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
     /// 해당 포켓몬이 가진 타입 목록
@@ -62,7 +58,6 @@ struct PokemonModel: Codable {
         case weight
         case abilities
         case gameIndices = "game_indices"
-        case cries
         case stats
         case types
     }
@@ -87,19 +82,12 @@ struct PokemonTypeModel: Codable {
 
 struct PokemonStat: Codable {
     var stat: NamedAPIResource
-    var effort: Int
     var baseStat: Int
 
     enum CodingKeys: String, CodingKey {
         case stat
-        case effort
         case baseStat = "base_stat"
     }
-}
-
-struct PokemonCries: Codable {
-    var latest: String
-    var legacy: String?
 }
 
 /**
