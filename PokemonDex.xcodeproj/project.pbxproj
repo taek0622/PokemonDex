@@ -77,11 +77,9 @@
 				2610A3552C77717B00BD3C5F /* Models */,
 				2610A3562C77719F00BD3C5F /* Views */,
 				2610A3572C7771B800BD3C5F /* ViewControllers */,
+				2610A3602C7A4BA300BD3C5F /* Utilities */,
 				2610A3112C6546BF00BD3C5F /* AppDelegate.swift */,
-				2610A35E2C7986BE00BD3C5F /* UIView+.swift */,
 				2610A3132C6546BF00BD3C5F /* SceneDelegate.swift */,
-				2610A3272C659B1400BD3C5F /* PokemonType.swift */,
-				2610A3582C77CFA300BD3C5F /* PokemonGameVersion.swift */,
 				2610A31A2C6546C100BD3C5F /* Assets.xcassets */,
 				2610A31C2C6546C100BD3C5F /* LaunchScreen.storyboard */,
 				2610A31F2C6546C100BD3C5F /* Info.plist */,
@@ -116,6 +114,16 @@
 				2610A34F2C75E1BA00BD3C5F /* PokemonDexDetailViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2610A3602C7A4BA300BD3C5F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2610A3272C659B1400BD3C5F /* PokemonType.swift */,
+				2610A3582C77CFA300BD3C5F /* PokemonGameVersion.swift */,
+				2610A35E2C7986BE00BD3C5F /* UIView+.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
