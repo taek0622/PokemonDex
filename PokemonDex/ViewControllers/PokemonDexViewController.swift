@@ -17,6 +17,7 @@ class PokemonDexViewController: UIViewController {
     }
 
     private var todaysPokemon = PokemonInfo(id: 0)
+    private var pokemons = Array(repeating: PokemonInfo(id: 0), count: 1025)
     private var pokemonDexGridDataSource: UICollectionViewDiffableDataSource<Section, Int>!
 
     // MARK: - View
@@ -165,53 +166,71 @@ class PokemonDexViewController: UIViewController {
         let pokemonDexHeaderRegistration = UICollectionView.SupplementaryRegistration<PokemonDexHeader>(elementKind: PokemonDexHeader.identifier) { header, elementKind, indexPath in }
 
         let pokemonDexGridCellRegistration = UICollectionView.CellRegistration<PokemonDexGridCell, Int> { (cell, indexPath, pokemonDexNumber) in
-            guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
-            let pokemonImageRequest = URLRequest(url: pokemonImageURL)
+            if self.pokemons[pokemonDexNumber - 1].id == 0 {
+                self.pokemons[pokemonDexNumber - 1].id = pokemonDexNumber
+            }
 
-            URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
-                if let imageError {
-                    print("Image Error: \(imageError.localizedDescription)")
-                    return
-                }
+            if self.pokemons[pokemonDexNumber - 1].sprite == nil {
+                guard let pokemonImageURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonDexNumber).png") else { return }
+                let pokemonImageRequest = URLRequest(url: pokemonImageURL)
 
-                guard let imageData else {
-                    print("Image Error: Data Error")
-                    return
-                }
+                URLSession(configuration: .default).dataTask(with: pokemonImageRequest) { imageData, imageResponse, imageError in
+                    if let imageError {
+                        print("Image Error: \(imageError.localizedDescription)")
+                        return
+                    }
 
-                guard let image = UIImage(data: imageData) else {
-                    print("Image Data Error")
-                    return
-                }
+                    guard let imageData else {
+                        print("Image Error: Data Error")
+                        return
+                    }
 
-                DispatchQueue.main.async {
-                    cell.configureThumbnailImage(thumbnailImage: image)
-                }
-            }.resume()
+                    self.pokemons[pokemonDexNumber - 1].sprite = imageData
 
-            guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
-            let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
+                    guard let image = UIImage(data: imageData) else {
+                        print("Image Data Error")
+                        return
+                    }
 
-            URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
-                if let error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
+                    DispatchQueue.main.async {
+                        cell.configureThumbnailImage(thumbnailImage: image)
+                    }
+                }.resume()
+            } else {
+                guard let image = UIImage(data: self.pokemons[pokemonDexNumber - 1].sprite!) else { return }
+                cell.configureThumbnailImage(thumbnailImage: image)
+            }
 
-                guard let data else {
-                    print("Error: Request fail")
-                    return
-                }
+            if self.pokemons[pokemonDexNumber - 1].species == nil {
+                guard let pokemonSpeciesUrl = URL(string: "https://pokeapi.co/api/v2/pokemon-species/\(pokemonDexNumber)") else { return }
+                let pokemonSpeciesRequest = URLRequest(url: pokemonSpeciesUrl)
 
-                guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
-                    print("Error: Data Decoding error")
-                    return
-                }
+                URLSession(configuration: .default).dataTask(with: pokemonSpeciesRequest) { data, response, error in
+                    if let error {
+                        print("Error: \(error.localizedDescription)")
+                        return
+                    }
 
-                DispatchQueue.main.async {
-                    cell.configureGridText(pokemonDexNumber: pokemonDexNumber, pokemonName: json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name)
-                }
-            }.resume()
+                    guard let data else {
+                        print("Error: Request fail")
+                        return
+                    }
+
+                    guard let json = try? JSONDecoder().decode(PokemonSpeciesModel.self, from: data) else {
+                        print("Error: Data Decoding error")
+                        return
+                    }
+
+                    self.pokemons[pokemonDexNumber - 1].species = json
+
+                    DispatchQueue.main.async {
+                        cell.configureGridText(pokemonDexNumber: pokemonDexNumber, pokemonName: json.names.filter { $0.language.name == "ko" }.isEmpty ? json.names[0].name : json.names.filter { $0.language.name == "ko" }[0].name)
+                    }
+                }.resume()
+            } else {
+                guard let species = self.pokemons[pokemonDexNumber - 1].species else { return }
+                cell.configureGridText(pokemonDexNumber: pokemonDexNumber, pokemonName: species.names.filter { $0.language.name == "ko" }.isEmpty ? species.names[0].name : species.names.filter { $0.language.name == "ko" }[0].name)
+            }
         }
 
         pokemonDexGridDataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: pokemonDexListCollectionView, cellProvider: { collectionView, indexPath, item in
