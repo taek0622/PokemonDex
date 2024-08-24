@@ -293,7 +293,6 @@ class PokemonDexDetailView: UIView {
         dexTypeButtonConfig.baseForegroundColor = .black
         dexTypeButtonConfig.baseBackgroundColor = .white
         pokemonDexTypeSelectionButton.configuration = dexTypeButtonConfig
-        pokemonDexTypeSelectionButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
     }
 
     // MARK: - Data Configure Method
