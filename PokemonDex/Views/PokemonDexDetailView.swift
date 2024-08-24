@@ -338,4 +338,8 @@ class PokemonDexDetailView: UIView {
         pokemonDexTypeSelectionButton.layer.borderColor = color.cgColor
         pokemonDexTypeSelectionButton.configuration?.title = version.configureVersionName()
     }
+
+    func configurePokemonDexButtonMenu(menu: UIMenu) {
+        pokemonDexTypeSelectionButton.menu = menu
+    }
 }

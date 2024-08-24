@@ -46,12 +46,12 @@ class PokemonDexDetailViewController: UIViewController {
             guard let pokemon = selectedPokemon.pokemon else { return }
             pokemonDexDetailView.configurePokemonData(type1: pokemon.types[0].type.name, type2: pokemon.types.count == 2 ? pokemon.types[1].type.name : nil)
 
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.menu = UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
+            pokemonDexDetailView.configurePokemonDexButtonMenu(menu: UIMenu(title: "도감 종류", children: species.flavorTextEntries.filter { $0.language.name == "ko" }.map { flavorTextType in
                 UIAction(title: PokemonGameVersion(rawValue: flavorTextType.version.name)!.configureVersionName(), handler: { _ in
                     self.pokemonDexDetailView.configurePokemonDexButtonShape(version: PokemonGameVersion(rawValue: flavorTextType.version.name)!)
                     self.pokemonDexDetailView.configurePokemonDexDetail(dexDetail: flavorTextType.flavorText)
                 })
-            })
+            }))
         }
     }
 
