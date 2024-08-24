@@ -21,8 +21,6 @@ struct PokemonInfo {
  struct PokemonModel {
     /// 포켓몬의 id
     var id: Int
-    /// 포켓몬의 이름
-    var name: String
     /// 포켓몬의 키 (cm)
     var height: Int
     /// 포켓몬의 무게 (hg / 0.1kg)
@@ -43,8 +41,6 @@ struct PokemonInfo {
 struct PokemonModel: Codable {
     /// 포켓몬의 id
     var id: Int
-    /// 포켓몬의 이름
-    var name: String
     /// 포켓몬의 키 (cm)
     var height: Int
     /// 포켓몬의 무게 (hg / 0.1kg)
@@ -62,7 +58,6 @@ struct PokemonModel: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case name
         case height
         case weight
         case abilities
