@@ -42,7 +42,6 @@ class PokemonDexDetailViewController: UIViewController {
             let gameVersionColor = baseFlavorText.isEmpty ? .black : PokemonGameVersion(rawValue: baseFlavorText[0].version.name)?.configureVersionColor()
             pokemonDexDetailView.pokemonDexTypeSelectionButton.configuration?.baseForegroundColor = gameVersionColor
             pokemonDexDetailView.pokemonDexTypeSelectionButton.layer.borderColor = gameVersionColor?.cgColor
-            pokemonDexDetailView.pokemonDexTypeSelectionButton.showsMenuAsPrimaryAction = true
 
             guard let sprite = selectedPokemon.sprite else { return }
             pokemonDexDetailView.configurePokemonSprite(imageData: sprite)
