@@ -27,8 +27,6 @@ struct PokemonInfo {
     var weight: Int
     /// 포켓몬이 잠재적으로 가질 수 있는 특성 목록
     var abilities: [PokemonAbility]
-    /// 세대별 포켓몬과 관련된 게임 목록
-    var gameIndices: [VersionGameIndex]
     /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
     /// 해당 포켓몬이 가진 타입 목록
@@ -45,8 +43,6 @@ struct PokemonModel: Codable {
     var weight: Int
     /// 포켓몬이 잠재적으로 가질 수 있는 특성 목록
     var abilities: [PokemonAbility]
-    /// 세대별 포켓몬과 관련된 게임 목록
-    var gameIndices: [VersionGameIndex]
     /// 해당 포켓몬의 종족값 목록
     var stats: [PokemonStat]
     /// 해당 포켓몬이 가진 타입 목록
@@ -57,7 +53,6 @@ struct PokemonModel: Codable {
         case height
         case weight
         case abilities
-        case gameIndices = "game_indices"
         case stats
         case types
     }
