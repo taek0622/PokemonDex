@@ -169,6 +169,7 @@ class PokemonDexViewController: UIViewController {
                 }
             }
 
+            cell.titleImageButton.removeTarget(nil, action: nil, for: .touchUpInside)
             cell.titleImageButton.addAction(action, for: .touchUpInside)
         }
 
@@ -194,6 +195,8 @@ class PokemonDexViewController: UIViewController {
                         return
                     }
 
+                    // image 데이터를 UIRenderer와 ImageIO를 사용하여 줄여보고 더 좋은 것을 사용하기
+                    // 레퍼런스: https://velog.io/@o_joon_/Swift-Image-DownSampling
 
                     guard let originalImage = UIImage(data: originalImageData) else { return }
 

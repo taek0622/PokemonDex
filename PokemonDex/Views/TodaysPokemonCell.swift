@@ -191,6 +191,7 @@ class TodaysPokemonCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+//        configureTitleImageButtonAction()
     }
 
     required init?(coder: NSCoder) {
@@ -308,5 +309,19 @@ class TodaysPokemonCell: UICollectionViewCell {
         pokemonDexDetail.text = dexDetail
         pokemonDexDetail.setContentOffset(.zero, animated: false)
     }
+
+//    func configureTitleImageButtonAction() {
+//        let action  = UIAction { _ in
+//            UIView.animate(withDuration: 1) {
+//                self.titleImageButton.transform = CGAffineTransform(rotationAngle: .pi)
+//            }
+//
+//            UIView.animate(withDuration: 1) {
+//                self.titleImageButton.transform = CGAffineTransform(rotationAngle: .ulpOfOne)
+//            }
+//        }
+//
+//        self.titleImageButton.addAction(action, for: .touchUpInside)
+//    }
 
 }
